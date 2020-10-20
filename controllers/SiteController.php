@@ -6,10 +6,12 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Productos;
+use app\models\Categorias;
 
 class SiteController extends Controller
 {
@@ -62,17 +64,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $categorias = Productos::find()
-            ->select('categoria')
-            ->distinct();
+        $categorias = Categorias::find()->all();
 
-        $productos = Productos::find()
+        $idCategoria = Yii::$app->request->get('id'); 
+
+        if ($idCategoria) {
+            $productos = Productos::find()
+            ->innerJoin('categorias','`productos`.`categoria` = `categorias`.`id`')
+            ->where(['categorias.id' => $idCategoria])
+            ->orderBy('productos.categoria')
+            ->all();
+        } else {
+            $productos = Productos::find()
             ->orderBy('categoria')
             ->all();
+        }
 
         return $this->render('index', [
             'categorias' => $categorias,
             'productos' => $productos,
+            'idCategoria' => $idCategoria,
         ]);
     }
 
@@ -138,5 +149,26 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    /**
+     * Adding a single Product to cart.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionAdd()
+    {
+        $id = Yii::$app->request->post('id');
+        $cantidad = (Yii::$app->request->post('cantidad')) ?: 1;
+        $cart = Yii::$app->cart;
+        /** Check if exists open carts in DB */
+
+        $model = Productos::findOne($id);
+        if ($model) {
+            $cart->put($model, $cantidad);
+            return $this->redirect(['index']);
+        }
+        throw new NotFoundHttpException();
     }
 }

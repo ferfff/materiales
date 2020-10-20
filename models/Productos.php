@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yz\shoppingcart\CartPositionInterface;
+use yz\shoppingcart\CartPositionTrait;
 
 /**
  * This is the model class for table "productos".
@@ -21,8 +23,10 @@ use Yii;
  * @property TiendasProductos[] $tiendasProductos
  * @property Tiendas[] $tiendas
  */
-class Productos extends \yii\db\ActiveRecord
+class Productos extends \yii\db\ActiveRecord implements CartPositionInterface
 {
+    use CartPositionTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -39,8 +43,8 @@ class Productos extends \yii\db\ActiveRecord
         return [
             [['nombre', 'stock'], 'required'],
             [['descripcion'], 'string'],
-            [['peso'], 'number'],
-            [['nombre', 'stock', 'categoria', 'foto'], 'string', 'max' => 45],
+            [['peso', 'categoria'], 'number'],
+            [['nombre', 'stock', 'foto'], 'string', 'max' => 45],
             [['dimension'], 'string', 'max' => 100],
         ];
     }
@@ -62,6 +66,16 @@ class Productos extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Gets query for [[PedidosProductos]].
      *
@@ -73,13 +87,23 @@ class Productos extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Categorias]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategorias()
+    {
+        return $this->hasOne(Categorias::class, ['id' => 'categoria']);
+    }
+
+    /**
      * Gets query for [[Pedidos]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getPedidos()
     {
-        return $this->hasMany(Pedidos::className(), ['id' => 'pedidos_id'])->viaTable('pedidos_productos', ['productos_id' => 'id']);
+        return $this->hasMany(Pedidos::class, ['id' => 'pedidos_id'])->viaTable('pedidos_productos', ['productos_id' => 'id']);
     }
 
     /**
@@ -99,6 +123,6 @@ class Productos extends \yii\db\ActiveRecord
      */
     public function getTiendas()
     {
-        return $this->hasMany(Tiendas::className(), ['id' => 'tiendas_id'])->viaTable('tiendas_productos', ['productos_id' => 'id']);
+        return $this->hasMany(Tiendas::class, ['id' => 'tiendas_id'])->viaTable('tiendas_productos', ['productos_id' => 'id']);
     }
 }

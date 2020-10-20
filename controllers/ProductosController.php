@@ -35,12 +35,11 @@ class ProductosController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProductosSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $cart = Yii::$app->cart;
+        $products = $cart->getPositions();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'products' => $products,
         ]);
     }
 
@@ -107,6 +106,29 @@ class ProductosController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes an existing Productos model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeleteProduct($id)
+    {
+        $cart = Yii::$app->cart;
+        $cart->removeById($id);
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionCheckout()
+    {
+        // Get direction and prices from DB
+        // Calculate Kms by CP
+        // GEt cost from DB according Kms
+        // REturn total cost 
     }
 
     /**

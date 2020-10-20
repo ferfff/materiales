@@ -37,13 +37,13 @@ AppAsset::register($this);
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
-            Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->email . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-        )
+                Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->email . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                ),
         ],
         'options' => ['class' => 'navbar-nav'],
     ]);
