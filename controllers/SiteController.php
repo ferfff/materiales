@@ -152,6 +152,26 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionCart()
+    {
+        return $this->render('cart');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionPayment()
+    {
+        return $this->render('payment');
+    }
+
+    /**
      * Adding a single Product to cart.
      * @param integer $id
      * @return mixed
