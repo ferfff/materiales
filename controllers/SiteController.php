@@ -156,9 +156,9 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionCart()
+    public function actionCarrito()
     {
-        return $this->render('cart');
+        return $this->render('carrito');
     }
 
     /**
@@ -166,10 +166,82 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionPayment()
+    public function actionPago()
     {
-        return $this->render('payment');
+        return $this->render('pago');
     }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionSucursales()
+    {
+        return $this->render('sucursales');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionAyuda()
+    {
+        return $this->render('ayuda');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionContacto()
+    {
+        return $this->render('contacto');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionCompra()
+    {
+        return $this->render('compra');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionProductos()
+    {
+        return $this->render('productos');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionDetalle()
+    {
+        return $this->render('detalle');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionRecovery()
+    {
+        return $this->render('recovery');
+    }
+
+    
 
     /**
      * Adding a single Product to cart.

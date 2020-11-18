@@ -1,0 +1,360 @@
+
+.light-header{
+    font-size: 50px;
+    font-weight: 300;
+}
+
+.red_bold{
+    font-size: 50px;
+    color: #EB3D00;
+    font-weight: 700;
+}
+
+.p_banner{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.align_items{
+    display: flex;
+    flex-direction: row;
+    height: auto !important;
+    align-items: center;
+}
+
+/*-----Nav Logo------*/
+
+.nav_contact{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 75px;
+    align-items: center;
+}
+
+.bg-red{
+    background-color: #EB3D00 !important;
+}
+
+/*-----Nav Login------*/
+.nav-productos{
+    font-size: 14px !important;
+    background-color: #000000;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav_login{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    color: #ffffff;
+}
+
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav_login{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 50px;
+    align-items: center;
+}
+
+/*-----Nav Login------*/
+.banner_home{
+    background-color: #f4f4f4;
+    padding: 40px 0;
+}
+
+/*-----productos------*/
+.container_barra{
+    display: flex;
+    flex-direction: row;
+    padding: 1.25rem;
+    border-top: 1px solid #E5E5E5;
+    padding: 1.25rem;
+}
+
+.product_barra_img{
+    width: 35%;
+}
+
+.product_barra{
+    width: 65%;
+}
+
+.container_categorias{
+    display: flex;
+    flex-direction: row;
+    padding: 1.25rem;
+    border-top: 1px solid #E5E5E5;
+    padding: 1.25rem;
+}
+
+.categoria_img{
+    width: 35%;
+}
+
+.categoria_list{
+    width: 65%;
+}
+
+.img_mini{
+    width: 100%;
+}
+
+/*-----Atencion------*/
+.atencion{
+    background-color: #EB3D00;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+img.icon{
+    width: 50px !important;
+}
+
+/*---footer---*/
+.back_red{
+    background-color: #EB3D00;
+    font-size: 12px;
+}
+
+.back_black{
+    background-color: #000000;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+
+/*---Producto---*/
+.banner_producto{
+    background-image: url('../img/banner_producto.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid #808080;
+}
+
+/*---Login---*/
+.login{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*---Sucursales---*/
+.banner_sucursales{
+    background-image: url('../img/sucursales.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 30px;
+    height: 500px;
+}
+
+/*---Preguntas---*/
+.banner_preguntas{
+    background-image: url('../img/preguntas.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+/*---Contacto---*/
+.banner_contacto{
+    background-image: url('../img/contacto.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+
+
+@media (max-width: 994px) {
+    .nav_contact{
+        justify-content: flex-end;
+        height: 75px !important;
+    }
+
+    .nav_login{
+        justify-content: center !important;
+        border-top: 1px solid #ffffff;
+        padding: 0 !important;
+    }
+
+    .megamenu{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .inverse_menu{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .logo-fluid{
+        padding: 0 !important;
+    }
+
+    .light-header{
+        font-size: 40px;
+        text-align: center;
+    }
+    
+    .red_bold{
+        font-size: 40px;
+    }
+
+    .p_banner{
+        text-align: center;
+    }
+
+    .container_categorias{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+    .categoria_img{
+        width: 100%;
+    }
+    
+    .categoria_list{
+        width: 100%;
+    }
+    
+    .img_mini{
+        width: 130px;
+    }
+
+    .product_barra_img{
+        width: 40%;
+    }
+
+    .product_barra{
+        width: 60%;
+    }
+    
+    .back_black{
+        text-align: center;
+    }
+
+    .banner_producto{
+        justify-content: center;
+    }
+
+    .menu {
+        justify-content: flex-end !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .logo{
+        background-color: #ffffff;
+        text-align: center;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    .logo-fluid{
+        padding: 0 !important;
+    }
+
+    .nav_contact{
+        justify-content: center;
+    }
+
+    .card-img-top{
+        width: 50%;
+        text-align: center;
+    }
+
+    .list_items{
+        text-align: center !important;
+    }
+
+    .back_red{
+        text-align: center !important;
+    }
+
+    .media {
+        display: inline !important;
+        -ms-flex-align: baseline !important;
+    }
+
+    .direction-r{
+        text-align: center !important;
+    }
+
+    .direction-l{
+        text-align: center !important;
+    }
+
+    .menu {
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .info{
+        display: none !important;
+    }
+
+    .login{
+        flex-direction: column-reverse;
+    }
+
+    /*---Sucursales---*/
+    .banner_sucursales, .banner_preguntas, .banner_contacto{
+    background-position: left;
+    text-align: center;
+    margin: 0 !important;
+    height: auto !important;
+    margin-bottom: 3rem !important;
+    }
+
+    /*---banners---*/
+    .banner_preguntas, .banner_contacto{
+        background-position: center;
+        text-align: center;
+        margin: 0 !important;
+        height: 250px !important;
+        margin-bottom: 3rem !important;
+        }
+}
+
+@media (max-width: 425px) {
+    .img_mini{
+        width: 100%;
+    }
+}
+
+
+
+
