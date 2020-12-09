@@ -22,6 +22,7 @@ use yii\web\IdentityInterface;
  * @property string $colonia
  * @property string $cp
  * @property string $ciudad
+ * @property string $estado
  * @property string $tipo
  * @property string|null $password
  * @property string|null $authKey
@@ -55,7 +56,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['tipo'], 'string'],
             [['nombre', 'paterno', 'materno', 'telefono', 'email', 'calle', 'authKey'], 'string', 'max' => 50],
             [['numero'], 'string', 'max' => 10],
-            [['interior', 'colonia', 'cp', 'ciudad'], 'string', 'max' => 45],
+            [['interior', 'colonia', 'cp', 'ciudad', 'estado'], 'string', 'max' => 45],
             [['password'], 'string', 'max' => 100],
         ];
     }
@@ -76,6 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
             'numero' => 'Numero',
             'interior' => 'Interior',
             'colonia' => 'Colonia',
+            'estado' => 'Estado',
             'cp' => 'Código Postal',
             'ciudad' => 'Ciudad',
             'tipo' => 'Tipo',

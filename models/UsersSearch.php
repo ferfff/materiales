@@ -9,7 +9,7 @@ use app\models\Users;
 /**
  * UsersSearch represents the model behind the search form of `app\models\Users`.
  */
-class UsersSearch extends Users
+class UsersSearch extends User
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class UsersSearch extends Users
      */
     public function search($params)
     {
-        $query = Users::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 

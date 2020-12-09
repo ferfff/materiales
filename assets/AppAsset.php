@@ -20,16 +20,16 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/bootstrap.min.css',
         'css/site.css',
         'css/styles.css',
         'css/common.css',
         'slick/slick.css',
         'slick/slick-theme.css',
-        
+        'https://use.fontawesome.com/releases/v5.11.2/css/all.css',
+        'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap',
     ];
     public $js = [
-        'slick/slick.js',
-        'slick/bootstrap.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

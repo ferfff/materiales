@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Categorias;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -11,8 +13,11 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Productos;
-use app\models\Categorias;
 
+/**
+ * Class SiteController
+ * @package app\controllers
+ */
 class SiteController extends Controller
 {
     /**
@@ -64,26 +69,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $categorias = Categorias::find()->all();
-
-        $idCategoria = Yii::$app->request->get('id'); 
+        $idCategoria = Yii::$app->request->get('id');
 
         if ($idCategoria) {
             $productos = Productos::find()
-            ->innerJoin('categorias','`productos`.`categoria` = `categorias`.`id`')
-            ->where(['categorias.id' => $idCategoria])
-            ->orderBy('productos.categoria')
-            ->all();
+                ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
+                ->where(['categorias.id' => $idCategoria])
+                ->orderBy('productos.categoria')
+                ->all();
+            $categoria = Categorias::findOne($idCategoria);
+            $categoriaName = $categoria->categoria;
         } else {
             $productos = Productos::find()
-            ->orderBy('categoria')
-            ->all();
+                ->orderBy('categoria')
+                ->all();
+            $categoriaName = 'Nuestros productos';
         }
 
         return $this->render('index', [
-            'categorias' => $categorias,
             'productos' => $productos,
-            'idCategoria' => $idCategoria,
+            'categoriaName' => $categoriaName,
         ]);
     }
 
@@ -94,8 +99,6 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        $this->layout=false;
-
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -158,7 +161,39 @@ class SiteController extends Controller
      */
     public function actionCarrito()
     {
-        return $this->render('carrito');
+        $cart = Yii::$app->cart;
+
+        if (!Yii::$app->user->isGuest) {
+            $userId = Yii::$app->user->id;
+            $user = User::findOne($userId);
+        }
+
+        $cartPositions = $cart->getPositions();
+
+        return $this->render('carrito', [
+            'cartPositions' => $cartPositions,
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * Delete a single Product to cart.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete()
+    {
+        $id = Yii::$app->request->post('id-product');
+        $cart = Yii::$app->cart;
+
+        /** Check if exists open carts in DB */
+        $model = Productos::findOne($id);
+        if ($model) {
+            $cart->removeById($id);
+            return $this->redirect(['site/carrito']);
+        }
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -241,7 +276,6 @@ class SiteController extends Controller
         return $this->render('recovery');
     }
 
-    
 
     /**
      * Adding a single Product to cart.
