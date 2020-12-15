@@ -42,7 +42,7 @@ use yii\helpers\Html;
                             <div class="form-group col-md-6 p_12">
                                 <label for="inputApellidos">Apellidos</label>
                                 <input type="apellidos" class="form-control rounded-pill p_14" id="inputApellidos"
-                                       placeholder="Escribe tu apellido" value="<?= $user->paterno . ' ' . $user->materno ?>">
+                                       placeholder="Escribe tu apellido" value="<?= $user->apellidos ?>">
                             </div>
                         </div>
                         <div class="form-group p_12">

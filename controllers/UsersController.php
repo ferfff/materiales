@@ -4,8 +4,8 @@ namespace app\controllers;
 
 use app\models\User;
 use Yii;
-use app\models\Users;
 use app\models\UsersSearch;
+use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,7 +22,7 @@ class UsersController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -62,13 +62,26 @@ class UsersController extends Controller
      * Creates a new Users model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
+     * @throws Exception
      */
     public function actionCreate()
     {
-        $model = new Users();
+        $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $passwordNormal = $model->password;
+            $str = rand();
+            $model->authKey = $str . trim($model->id);
+            $model->password = Yii::$app->getSecurity()->generatePasswordHash($passwordNormal);
+
+            if ($model->save()) {
+                Yii::$app->session->setFlash('error', 'Usuario Creado');
+                /*Yii::$app->mailer->compose(['html' => '@app/mail/newuser'], ['password' => $passwordNormal, 'id' => $model->id, ])
+                    ->setFrom('contacto@materiales.com.mx')
+                    ->setTo($model->email)
+                    ->setSubject('Nuevo usuario creado en Materiales')
+                    ->send();*/
+            }
         }
 
         return $this->render('create', [
@@ -94,20 +107,6 @@ class UsersController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Deletes an existing Users model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

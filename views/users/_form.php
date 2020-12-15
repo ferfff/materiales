@@ -30,6 +30,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'colonia')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'estado')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'cp')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'ciudad')->textInput(['maxlength' => true]) ?>

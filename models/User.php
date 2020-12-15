@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\NotSupportedException;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -12,8 +13,7 @@ use yii\web\IdentityInterface;
  *
  * @property int $id
  * @property string $nombre
- * @property string $paterno
- * @property string|null $materno
+ * @property string $apellidos
  * @property string $telefono
  * @property string $email
  * @property string $calle
@@ -52,7 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'paterno', 'telefono', 'email', 'calle', 'numero', 'colonia', 'cp', 'ciudad'], 'required'],
+            [['nombre', 'apellidos', 'telefono', 'email', 'calle', 'numero', 'colonia', 'cp', 'ciudad'], 'required'],
             [['tipo'], 'string'],
             [['nombre', 'paterno', 'materno', 'telefono', 'email', 'calle', 'authKey'], 'string', 'max' => 50],
             [['numero'], 'string', 'max' => 10],
@@ -69,8 +69,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'paterno' => 'Paterno',
-            'materno' => 'Materno',
+            'apellidos' => 'Apellidos',
             'telefono' => 'Telefono',
             'email' => 'Email',
             'calle' => 'Calle',
@@ -89,7 +88,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Gets query for [[Pedidos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPedidos()
     {
