@@ -160,6 +160,8 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             $userId = Yii::$app->user->id;
             $user = User::findOne($userId);
+        } else {
+            $user = new User();
         }
 
         $cartPositions = $cart->getPositions();
