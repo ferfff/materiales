@@ -26,8 +26,8 @@ use yii\helpers\Html;
 <!-- Productos -->
 <div class="container border-bottom pb-5">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">
-        <div class="col">
-            <div class="card mb-3">
+        <div class="col mb-3">
+            <div class="card h-100 mb-3">
                 <div class="row no-gutters direction-l">
                     <div class="col-md-4">
                         <img src="../img/producto.jpg" class="card-img-top" alt="producto">
@@ -43,8 +43,8 @@ use yii\helpers\Html;
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card mb-3">
+        <div class="col mb-3">
+            <div class="card h-100 mb-3">
                 <div class="row no-gutters direction-l">
                     <div class="col-md-4">
                         <img src="../img/producto.jpg" class="card-img-top" alt="producto">
@@ -60,8 +60,8 @@ use yii\helpers\Html;
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card mb-3">
+        <div class="col mb-3">
+            <div class="card h-100 mb-3">
                 <div class="row no-gutters direction-l">
                     <div class="col-md-4">
                         <img src="../img/producto.jpg" class="card-img-top" alt="producto">
@@ -77,8 +77,8 @@ use yii\helpers\Html;
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card mb-3">
+        <div class="col mb-3">
+            <div class="card h-100">
                 <div class="row no-gutters direction-l">
                     <div class="col-md-4">
                         <img src="../img/producto.jpg" class="card-img-top" alt="producto">
@@ -101,19 +101,15 @@ use yii\helpers\Html;
 <!-- icon -->
 <div class="container atencion rounded mb-5">
     <div class="row">
-        <div class="col-md-6 col-lg-3 my-4">
-            <img class="icon mb-3" src="/img/envio.svg" alt="">
-            <p>Envío gratis en tu compra</p>
-        </div>
-        <div class="col-md-6 col-lg-3 my-4">
+        <div class="col-md-4 col-lg-4 my-4">
             <img class="icon mb-3" src="/img/atencion.svg" alt="">
             <p> Atención telefónica</p>
         </div>
-        <div class="col-md-6 col-lg-3 my-4">
+        <div class="col-md-4 col-lg-4 my-4">
             <img class="icon mb-3" src="/img/devolucion.svg" alt="">
             <p> Tienes 30 días para devolver tu producto</p>
         </div>
-        <div class="col-md-6 col-lg-3 my-4">
+        <div class="col-md-4 col-lg-4 my-4">
             <img class="icon mb-3" src="/img/pago.svg" alt="">
             <p> Pagos 100% seguros</p>
         </div>
@@ -129,8 +125,8 @@ use yii\helpers\Html;
         <?php
         foreach ($productos as $producto) { ?>
             <?= Html::beginForm(['add', 'id' => 'add-to-cart'], 'post', ['enctype' => 'multipart/form-data']) ?>
-            <div class="col my-3">
-                <div class="card h-100 text-center">
+            <div class="col mb-3">
+                <div class="card text-center h-100">
                     <div class="card-body">
                         <?= Html::img('/images/' . $producto->foto, ['class' => 'card-img-top', 'alt' => "Imagen"]); ?>
                         <?= Html::tag('h5', Html::encode($producto->nombre), ['class' => 'header_product']) ?>

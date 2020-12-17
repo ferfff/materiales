@@ -16,36 +16,59 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
         <div class="row login">
 
-            <div class="col-md-6 col-lg-5 direction-l">
+            <div class="col-md-10 col-lg-7">
                 <div class="px-5 py-3 fondo-dark text-white rounded-top">
                     <h2 class="font-weight-bold">Crear Cuenta</h2>
                 </div>
-                <form class="mb-3 p-5 bg-red text-light rounded-bottom direction-l">
+                
+                <form class="mb-3 p-5 bg-red text-light rounded-bottom">
                     <div class="form-row">
-                        <div class="form-group col-md-12 p_14">
-                            <label for="inputName">Nombre Completo</label>
-                            <input class="form-control rounded-pill p_14" id="inputName"
-                                   placeholder="Escribe tu nombre">
+                        <div class="form-group col-md-6 p_12">
+                            <label for="inputName">Nombre(s)</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="Escribe tu(s) nombre(s)">
                         </div>
-                        <div class="form-group col-md-12 p_14">
+                        <div class="form-group col-md-6 p_12">
+                            <label for="inputName">Apellidos</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="Escribe tu apellido">
+                        </div>
+                        <div class="form-group col-md-12 p_12">
                             <label for="inputCorreo">Correo</label>
-                            <input type="email" class="form-control rounded-pill p_14" id="inputCorreo"
-                                   placeholder="nombre@correo.com">
+                            <input type="email" class="form-control rounded-pill p_14" id="inputCorreo" placeholder="nombre@correo.com">
                         </div>
-                        <div class="form-group col-md-12 p_14">
-                            <label for="inputPassword">Password</label>
-                            <input type="password" class="form-control rounded-pill p_14" id="inputPassword"
-                                   placeholder="Escribe una contraseña">
+                        <div class="form-group col-md-8 p_12">
+                            <label for="inputName">Dirección</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="Escribe tu dirección">
+                        </div>
+                        <div class="form-group col-md-4 p_12">
+                            <label for="inputName">C.P.</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="Ejem. 37000">
+                        </div>
+                        <div class="form-group col-md-7 p_12">
+                            <label for="inputName">Colonia</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="Escribe tu colonia">
+                        </div>
+                        <div class="form-group col-md-5 p_12">
+                            <label for="inputName">Teléfono</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="123-456-7890">
+                        </div>
+                        <div class="form-group col-md-6 p_12">
+                            <label for="inputName">Ciudad</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="Escribe tu ciudad">
+                        </div>
+                        <div class="form-group col-md-6 p_12">
+                            <label for="inputName">Estado</label>
+                            <input class="form-control rounded-pill p_14" id="inputName" placeholder="Escribe tu estado">
                         </div>
                     </div>
                     <div class="direction-l">
                         <button type="submit" class="btn btn-primary rounded-pill mt-3 btn-block">Crear Cuenta</button>
                     </div>
                 </form>
+
             </div>
 
-            <div class="col-md-6 col-lg-5 px-5 py-3 mb-5 direction-l">
-                <a href="/"><h2 class="text_red">Iniciar Sesión</h2></a>
+            <div class="col-md-8 col-lg-5 px-5 py-3 mb-5 direction-l">
+                <h2 class="text_red">Iniciar Sesión</h2>
                 <?php $form = ActiveForm::begin([
                     'id' => 'login-form',
                 ]); ?>

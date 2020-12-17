@@ -32,10 +32,10 @@ $this->beginPage() ?>
     <div class="container-fluid bg-red logo-fluid">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-lg-6 logo">
+                <div class="col-md-3 col-lg-5 logo">
                     <a href="/"><img src="/img/facil_construir_logo.jpg" width="190px" alt="facil construir"></a>
                 </div>
-                <div class="col-md-9 col-lg-6">
+                <div class="col-md-9 col-lg-7">
                     <nav class="nav_contact">
                         <span class="nav-link text-light p_12"><i class="fas fa-phone"></i> (477) 514-9653 al 56</span>
                         <a class="nav-link text-light p_12" href="mailto:contacto@fcfacil.com" target="_blank"><i
@@ -52,14 +52,14 @@ $this->beginPage() ?>
     <div class="container-fluid nav-productos text-light">
         <div class="container">
             <div class="row align_items">
-                <div class="col-md-3 col-lg-3">
+                <div class="col-md-3 col-lg-2">
                     <div class="btn-group py-2 megamenu">
-                        <button type="button" class="btn dropdown-toggle text-light megamenu font-weight-bold red_back"
+                        <button type="button" class="btn dropdown-toggle text-light megamenu font-weight-bold red_back __12size"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</button>
                         <div class="dropdown-menu dropdown-menu-md-center">
-                            <?= Html::a('TODOS', ['index', 'id' => 0], ['class' => 'dropdown-item']) ?>
+                            <?= Html::a('TODOS', ['index', 'id' => 0], ['class' => 'dropdown-item __12size font-weight-bold']) ?>
                             <?php foreach ($categorias as $categoria) {
-                                echo '<li class="list-group-item">';
+                                echo '<li class="list-group-item __12size">';
                                 echo Html::a($categoria->categoria, ['index', 'id' => $categoria->id], ['class' => 'dropdown-item']);
                                 echo '</li>';
                             } ?>
@@ -70,34 +70,41 @@ $this->beginPage() ?>
                 <div class="col-sm-12 col-md-9 col-lg-5 py-2">
                     <ul class="nav menu">
                         <li class="nav-item">
-                            <a class="nav-link active text-light" href="/">Inicio</a>
+                            <a class="nav-link active text-light p-2" href="/">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" href="/site/sucursales">Sucursales</a>
+                            <a class="nav-link active text-light p-2" href="/site/sucursales">Sucursales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" href="/site/ayuda">Ayuda</a>
+                            <a class="nav-link active text-light p-2" href="/site/ayuda">Ayuda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-light" href="/site/contact">Contacto</a>
+                            <a class="nav-link active text-light p-2" href="/site/contact">Contacto</a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="col-sm-12 col-md-12 col-lg-4">
-                    <ul class="nav_login">
+                <div class="col-sm-12 col-md-12 col-lg-5">
+                    <ul class="nav_login text-center p-2">
                         <?php
                         echo (Yii::$app->user->isGuest)
                             ? <<<HTML
-<li><a class="nav-link text-light" href="/site/login"><i class="fas fa-user"></i> Iniciar Sesión</a></li>
+<li><a class="nav-link text-light p-2" href="/site/login">Iniciar Sesión</a></li>
 HTML
                             : <<<HTML
-<li><a class="nav-link text-light" href="/site/logout"><i class="fas fa-user"></i> Finalizar Sesión</a></li>
+<li><a class="nav-link text-light p-2" href="/site/logout"><i class="fas fa-user"></i> Finalizar Sesión</a></li>
 HTML;
                         ?>
                         <li> |</li>
-                        <li><a class="nav-link text-light" href="/site/carrito"><i class="fas fa-shopping-cart"></i> $0.00</a>
-                            <div class="numberCircle"><?= \Yii::$app->cart->getCount() ?></div>
+                        <li>
+                            <div class="d-flex flex-row">
+                                <div class="numbercircle ml-2"><?= \Yii::$app->cart->getCount() ?></div>
+                                <span class="nav-link text-light p-2"><i class="fas fa-shopping-cart"></i> productos </span>        
+                            </div>
+                        </li>
+                        <li> |</li>
+                        <li>
+                            <a class="nav-link text-light p-2" href="#">Administración</a>
                         </li>
                     </ul>
                 </div>

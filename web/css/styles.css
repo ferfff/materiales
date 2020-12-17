@@ -22,6 +22,10 @@
     align-items: center;
 }
 
+.__12size{
+    font-size: 12px !important;
+}
+
 /*-----Nav Logo------*/
 
 .nav_contact{
@@ -68,6 +72,21 @@ ul{
     justify-content: flex-end;
     height: 50px;
     align-items: center;
+}
+
+.numbercircle {
+    width: 2em;
+    height: 2em;
+    box-sizing: initial;
+    background: red;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50%;
+    line-height: 2.1em;
+    box-sizing: content-box;
+    position: relative;;
+    top: 5px;
 }
 
 /*-----Nav Login------*/
@@ -199,12 +218,6 @@ img.icon{
         height: 75px !important;
     }
 
-    .nav_login{
-        justify-content: center !important;
-        border-top: 1px solid #ffffff;
-        padding: 0 !important;
-    }
-
     .megamenu{
         display: flex;
         flex-direction: row;
@@ -271,6 +284,24 @@ img.icon{
     .menu {
         justify-content: flex-end !important;
     }
+
+    .login,{
+        flex-direction: column-reverse !important;
+    }
+
+    .__confirmar{
+        flex-direction: column-reverse !important;
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 990px) {
+    .nav_login{
+        justify-content: center !important;
+        border-top: 1px solid #ffffff;
+        padding: 0 !important;
+    }
 }
 
 @media (max-width: 767px) {
@@ -324,10 +355,6 @@ img.icon{
 @media (max-width: 576px) {
     .info{
         display: none !important;
-    }
-
-    .login{
-        flex-direction: column-reverse;
     }
 
     /*---Sucursales---*/
