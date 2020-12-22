@@ -3,13 +3,13 @@
 namespace app\controllers;
 
 use app\models\Categorias;
+use app\models\Tiendas;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Productos;
@@ -56,6 +56,11 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
     /**
      * Displays homepage.
      *
@@ -80,8 +85,16 @@ class SiteController extends Controller
             $categoriaName = 'Nuestros productos';
         }
 
+        $productosTop = Productos::find()
+            ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
+            ->innerJoin('tiendas_productos as tp', 'tp.productos_id = productos.id')
+            ->where(['categorias.id' => $idCategoria])
+            ->limit(4)
+            ->all();
+
         return $this->render('index', [
             'productos' => $productos,
+            'productosTop' => $productosTop,
             'categoriaName' => $categoriaName,
         ]);
     }
@@ -103,8 +116,12 @@ class SiteController extends Controller
         }
 
         $model->password = '';
+
+        $newModel = new User();
+
         return $this->render('login', [
             'model' => $model,
+            'newModel' => $newModel,
         ]);
     }
 
@@ -169,6 +186,7 @@ class SiteController extends Controller
         return $this->render('carrito', [
             'cartPositions' => $cartPositions,
             'user' => $user,
+            'estados' => Yii::$app->params['estados'],
         ]);
     }
 
@@ -199,7 +217,31 @@ class SiteController extends Controller
      */
     public function actionPago()
     {
-        return $this->render('pago');
+        $dataEnvio = [];
+        $dataEnvio['nombreCompleto'] = Yii::$app->request->post('nombre') . ' ' . Yii::$app->request->post('apellidos');
+        $dataEnvio['nombre'] = Yii::$app->request->post('nombre');
+        $dataEnvio['apellidos'] = Yii::$app->request->post('apellidos');
+        $dataEnvio['email'] = Yii::$app->request->post('email');
+        $dataEnvio['direccion'] = Yii::$app->request->post('direccion');
+        $dataEnvio['ciudadCompleta'] = Yii::$app->request->post('ciudad') . ' ' . Yii::$app->request->post('estado');
+        $dataEnvio['ciudad'] = Yii::$app->request->post('ciudad');
+        $dataEnvio['estado'] = Yii::$app->request->post('estado');
+
+        $sucursales = Tiendas::find()->all();
+        $sucursalId = (Yii::$app->request->post('inputSucursal')) ? Yii::$app->request->post('inputSucursal') : 0;
+        $sucursal = Tiendas::findOne($sucursalId);
+
+        $cart = Yii::$app->cart;
+        $cartPositions = $cart->getPositions();
+
+        return $this->render('pago', [
+            'dataEnvio' => $dataEnvio,
+            'cartPositions' => $cartPositions,
+            'sucursales' => $sucursales,
+            'sucursalSelected' => $sucursal,
+            'sucursalId' => $sucursalId,
+        ]);
+
     }
 
     /**
@@ -229,7 +271,7 @@ class SiteController extends Controller
      */
     public function actionContacto()
     {
-        return $this->render('contacto');
+        return $this->render('contact');
     }
 
     /**

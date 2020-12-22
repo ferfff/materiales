@@ -16,10 +16,7 @@ use yii\web\IdentityInterface;
  * @property string $apellidos
  * @property string $telefono
  * @property string $email
- * @property string $calle
- * @property string $numero
- * @property string|null $interior
- * @property string $colonia
+ * @property string $direccion
  * @property string $cp
  * @property string $ciudad
  * @property string $estado
@@ -35,7 +32,7 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_ADMIN = 2;
 
     public $old_password;
-	public $new_password;
+    public $new_password;
     public $repeat_password;
 
     /**
@@ -52,12 +49,12 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['nombre', 'apellidos', 'telefono', 'email', 'calle', 'numero', 'colonia', 'cp', 'ciudad'], 'required'],
+            [['nombre', 'apellidos', 'telefono', 'email', 'direccion', 'cp', 'ciudad', 'estado', 'password'], 'required'],
             [['tipo'], 'string'],
-            [['nombre', 'paterno', 'materno', 'telefono', 'email', 'calle', 'authKey'], 'string', 'max' => 50],
-            [['numero'], 'string', 'max' => 10],
-            [['interior', 'colonia', 'cp', 'ciudad', 'estado'], 'string', 'max' => 45],
-            [['password'], 'string', 'max' => 100],
+            [['nombre', 'telefono', 'email', 'authKey'], 'string', 'max' => 50],
+            [['apellidos', 'estado', 'password'], 'string', 'max' => 100],
+            [['direccion'], 'string', 'max' => 200],
+            [['cp', 'ciudad'], 'string', 'max' => 45],
         ];
     }
 
@@ -70,15 +67,12 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => 'ID',
             'nombre' => 'Nombre',
             'apellidos' => 'Apellidos',
-            'telefono' => 'Telefono',
+            'telefono' => 'Teléfono',
             'email' => 'Email',
-            'calle' => 'Calle',
-            'numero' => 'Numero',
-            'interior' => 'Interior',
-            'colonia' => 'Colonia',
-            'estado' => 'Estado',
-            'cp' => 'Código Postal',
+            'direccion' => 'Dirección',
+            'cp' => 'CP',
             'ciudad' => 'Ciudad',
+            'estado' => 'Estado',
             'tipo' => 'Tipo',
             'password' => 'Password',
             'authKey' => 'Auth Key',
@@ -122,6 +116,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->id;
     }
 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
     public function getAuthKey()
     {
         return $this->authKey;
@@ -139,10 +138,10 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function isAdmin($id)
     {
-        if (static::findOne(['id' => $id, 'nivel' => self::ROLE_ADMIN])){            
+        if (static::findOne(['id' => $id, 'nivel' => self::ROLE_ADMIN])){
             return true;
-        } else {                   
+        } else {
             return false;
-        }    
+        }
     }
 }

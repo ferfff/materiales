@@ -26,75 +26,30 @@ use yii\helpers\Html;
 <!-- Productos -->
 <div class="container border-bottom pb-5">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">
-        <div class="col mb-3">
-            <div class="card h-100 mb-3">
-                <div class="row no-gutters direction-l">
-                    <div class="col-md-4">
-                        <img src="../img/producto.jpg" class="card-img-top" alt="producto">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="header_product">Studio Design</h5>
-                            <p class="p_descripcion mb-3">New Balance Fresh Foam LAZR v1 Sport</p>
-                            <button type="button" class="btn btn-primary rounded-pill btn-sm my-2">Ver detalle</button>
-                            <button type="button" class="btn btn-warning rounded-pill btn-sm">Añadir al carrito</button>
+        <?php
+        foreach ($productosTop as $productoTop) { ?>
+            <?= Html::beginForm(['add', 'id' => 'add-to-cart'], 'post', ['enctype' => 'multipart/form-data']) ?>
+            <div class="col mb-3">
+                <div class="card h-100 mb-3">
+                    <div class="row no-gutters direction-l">
+                        <div class="col-md-4">
+                            <?= Html::img('/images/' . $productoTop->foto, ['class' => 'card-img-top', 'alt' => "Imagen"]); ?>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <?= Html::tag('h5', Html::encode($productoTop->nombre), ['class' => 'header_product']) ?>
+                                <?= Html::tag('p', Html::encode($productoTop->descripcion), ['class' => 'p_descripcion mb-3']) ?>
+                                <?= Html::a('Ver detalle', ['productos/view', 'id' => $productoTop->id], ['class' => "btn btn-primary rounded-pill btn-sm my-2"]) ?>
+                                <?= Html::hiddenInput('id', $productoTop->id, []) ?>
+                                <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-warning rounded-pill btn-sm"]) ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col mb-3">
-            <div class="card h-100 mb-3">
-                <div class="row no-gutters direction-l">
-                    <div class="col-md-4">
-                        <img src="../img/producto.jpg" class="card-img-top" alt="producto">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="header_product">Studio Design</h5>
-                            <p class="p_descripcion mb-3">New Balance Fresh Foam LAZR v1 Sport</p>
-                            <button type="button" class="btn btn-primary rounded-pill btn-sm my-2">Ver detalle</button>
-                            <button type="button" class="btn btn-warning rounded-pill btn-sm">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col mb-3">
-            <div class="card h-100 mb-3">
-                <div class="row no-gutters direction-l">
-                    <div class="col-md-4">
-                        <img src="../img/producto.jpg" class="card-img-top" alt="producto">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="header_product">Studio Design</h5>
-                            <p class="p_descripcion mb-3">New Balance Fresh Foam LAZR v1 Sport</p>
-                            <button type="button" class="btn btn-primary rounded-pill btn-sm my-2">Ver detalle</button>
-                            <button type="button" class="btn btn-warning rounded-pill btn-sm">Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col mb-3">
-            <div class="card h-100">
-                <div class="row no-gutters direction-l">
-                    <div class="col-md-4">
-                        <img src="../img/producto.jpg" class="card-img-top" alt="producto">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="header_product">Studio Design</h5>
-                            <p class="p_descripcion mb-3">New Balance Fresh Foam LAZR v1 Sport</p>
-                            <button type="button" class="btn btn-primary rounded-pill btn-sm my-2">Ver detalle</button>
-                            <button type="button" class="btn btn-warning rounded-pill btn-sm">Añadir al
-                                carrito</i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <?= Html::endForm() ?>
+        <?php }
+        ?>
     </div>
 </div>
 

@@ -34,5 +34,7 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
+        'yii\widgets\ActiveFormAsset',
+        'yii\validators\ValidationAsset',
     ];
 }

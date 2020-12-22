@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Users;
 
 /**
  * UsersSearch represents the model behind the search form of `app\models\Users`.
@@ -18,7 +17,7 @@ class UsersSearch extends User
     {
         return [
             [['id'], 'integer'],
-            [['nombre', 'paterno', 'materno', 'telefono', 'email', 'calle', 'numero', 'interior', 'colonia', 'cp', 'ciudad', 'tipo', 'password', 'authKey'], 'safe'],
+            [['nombre', 'paterno', 'materno', 'telefono', 'email', 'cp', 'ciudad', 'tipo', 'password', 'authKey'], 'safe'],
         ];
     }
 
@@ -66,10 +65,7 @@ class UsersSearch extends User
             ->andFilterWhere(['like', 'materno', $this->materno])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'calle', $this->calle])
-            ->andFilterWhere(['like', 'numero', $this->numero])
-            ->andFilterWhere(['like', 'interior', $this->interior])
-            ->andFilterWhere(['like', 'colonia', $this->colonia])
+            ->andFilterWhere(['like', 'direccion', $this->direccion])
             ->andFilterWhere(['like', 'cp', $this->cp])
             ->andFilterWhere(['like', 'ciudad', $this->ciudad])
             ->andFilterWhere(['like', 'tipo', $this->tipo])

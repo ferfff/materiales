@@ -54,8 +54,10 @@ $this->beginPage() ?>
             <div class="row align_items">
                 <div class="col-md-3 col-lg-2">
                     <div class="btn-group py-2 megamenu">
-                        <button type="button" class="btn dropdown-toggle text-light megamenu font-weight-bold red_back __12size"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</button>
+                        <button type="button"
+                                class="btn dropdown-toggle text-light megamenu font-weight-bold red_back __12size"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos
+                        </button>
                         <div class="dropdown-menu dropdown-menu-md-center">
                             <?= Html::a('TODOS', ['index', 'id' => 0], ['class' => 'dropdown-item __12size font-weight-bold']) ?>
                             <?php foreach ($categorias as $categoria) {
@@ -87,19 +89,23 @@ $this->beginPage() ?>
                 <div class="col-sm-12 col-md-12 col-lg-5">
                     <ul class="nav_login text-center p-2">
                         <?php
+                        $email = Yii::$app->user->identity->getEmail();
                         echo (Yii::$app->user->isGuest)
                             ? <<<HTML
 <li><a class="nav-link text-light p-2" href="/site/login">Iniciar Sesión</a></li>
 HTML
                             : <<<HTML
-<li><a class="nav-link text-light p-2" href="/site/logout"><i class="fas fa-user"></i> Finalizar Sesión</a></li>
+<li title="{$email}"><a class="nav-link text-light p-2" href="/site/logout">
+<i class="fas fa-user"></i> Finalizar Sesión</a></li>
 HTML;
                         ?>
                         <li> |</li>
                         <li>
                             <div class="d-flex flex-row">
                                 <div class="numbercircle ml-2"><?= \Yii::$app->cart->getCount() ?></div>
-                                <span class="nav-link text-light p-2"><i class="fas fa-shopping-cart"></i> productos </span>        
+                                <a class="nav-link text-light" href="/site/carrito">
+                                    <i class="fas fa-shopping-cart"></i> productos
+                                </a>
                             </div>
                         </li>
                         <li> |</li>
