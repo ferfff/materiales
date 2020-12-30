@@ -49,6 +49,7 @@ YiiAsset::register($this);
                             <p><?= $dataEnvio['email'] ?></p>
                             <p><?= $dataEnvio['direccion'] ?></p>
                             <p><?= $dataEnvio['ciudad'] ?></p>
+                            <p><?= $dataEnvio['cp'] ?></p>
                             <p><?= $sucursalId ?></p>
                         </div>
                     </div>
@@ -72,6 +73,7 @@ HTML;
                                 <input name="direccion" type="hidden" value="<?= $dataEnvio['direccion'] ?>">
                                 <input name="ciudad" type="hidden" value="<?= $dataEnvio['ciudad'] ?>">
                                 <input name="estado" type="hidden" value="<?= $dataEnvio['estado'] ?>">
+                                <input name="cp" type="hidden" value="<?= $dataEnvio['cp'] ?>">
                             </div>
                         </form>
                         <div class="col my-3">

@@ -226,6 +226,7 @@ class SiteController extends Controller
         $dataEnvio['ciudadCompleta'] = Yii::$app->request->post('ciudad') . ' ' . Yii::$app->request->post('estado');
         $dataEnvio['ciudad'] = Yii::$app->request->post('ciudad');
         $dataEnvio['estado'] = Yii::$app->request->post('estado');
+        $dataEnvio['cp'] = Yii::$app->request->post('cp');
 
         $sucursales = Tiendas::find()->all();
         $sucursalId = (Yii::$app->request->post('inputSucursal')) ? Yii::$app->request->post('inputSucursal') : 0;
@@ -233,6 +234,8 @@ class SiteController extends Controller
 
         $cart = Yii::$app->cart;
         $cartPositions = $cart->getPositions();
+
+        //Encontrar distancia entre codigos postales
 
         return $this->render('pago', [
             'dataEnvio' => $dataEnvio,
