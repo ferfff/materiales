@@ -5,6 +5,9 @@ use yii\web\View;
 use yii\web\YiiAsset;
 
 YiiAsset::register($this);
+
+/* @var $dataEnvio [] */
+/* @var $cartPositions [] */
 ?>
     <div class="container my-3">
         <div class="row">
@@ -25,12 +28,14 @@ YiiAsset::register($this);
                         <div class="card mb-3">
                             <div class="row no-gutters d-flex align-items-center">
                                 <div class="col-md-2">
-                                    <img src="/img/producto.jpg" class="card-img" alt="producto">
+                                    <?= Html::img('/images/' . $cartPosition->foto, ['class' => 'card-img', 'alt' => "producto"]); ?>
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body direction-l">
-                                        <h5 class="card-title font-weight-bold">Nombre del producto</h5>
-                                        <p class="card-text">$0.00</p>
+                                        <h5 class="card-title font-weight-bold"><?= $cartPosition->nombre ?></h5>
+                                        <p class="card-text">Precio: $<?= $cartPosition->price ?></p>
+                                        <p class="card-text">Cantidad: <?= $cartPosition->quantity ?></p>
+                                        <p class="card-text">Total: $<?= $cartPosition->getCost() ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +55,6 @@ YiiAsset::register($this);
                             <p><?= $dataEnvio['direccion'] ?></p>
                             <p><?= $dataEnvio['ciudad'] ?></p>
                             <p><?= $dataEnvio['cp'] ?></p>
-                            <p><?= $sucursalId ?></p>
                         </div>
                     </div>
                     <div class="card bg-light py-3 my-3">
@@ -90,20 +94,18 @@ HTML;
                     <div class="card bg-light">
                         <div class="row row-cols-2 px-3 my-3 font-weight-bold">
                             <div class="col"><p>Subtotal</p></div>
-                            <div class="col direction-r">$0.00</div>
+                            <div class="col direction-r">$<?= $precioTotal ?></div>
                             <div class="col">Costo de Envío</div>
-                            <div class="col direction-r">$0.00</div>
+                            <div class="col direction-r">$<?= $costoEnvio ?></div>
                             <div class="border-top mt-2 pt-2"></div>
                             <div class="border-top mt-2 pt-2"></div>
                             <div class="col mt-2 pt-2">Total</div>
-                            <div class="col direction-r cost mt-2">$0.00</div>
+                            <div class="col direction-r cost mt-2">$<?= $costoEnvio + $precioTotal ?></div>
                         </div>
                     </div>
                     <div class="direction-l">
                         <a href="compra">
-                            <button type="submit" class="btn btn-primary btn-block rounded-pill mt-3">Comprar
-                                productos
-                            </button>
+                            <button type="submit" class="btn btn-primary btn-block rounded-pill mt-3">Comprar productos</button>
                     </div>
                 </div>
 

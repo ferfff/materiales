@@ -3,9 +3,14 @@
 namespace app\controllers;
 
 use app\models\Categorias;
+use app\models\Codigos;
+use app\models\Envios;
 use app\models\Tiendas;
+use app\models\TiendasProductos;
 use app\models\User;
+use Exception;
 use Yii;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -56,7 +61,8 @@ class SiteController extends Controller
         ];
     }
 
-    public function beforeAction($action) {
+    public function beforeAction($action)
+    {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
@@ -217,6 +223,9 @@ class SiteController extends Controller
      */
     public function actionPago()
     {
+        $codigo_postal = Yii::$app->request->post('cp');
+        $costoEnvio = 0;
+        $direccion = '';
         $dataEnvio = [];
         $dataEnvio['nombreCompleto'] = Yii::$app->request->post('nombre') . ' ' . Yii::$app->request->post('apellidos');
         $dataEnvio['nombre'] = Yii::$app->request->post('nombre');
@@ -226,23 +235,67 @@ class SiteController extends Controller
         $dataEnvio['ciudadCompleta'] = Yii::$app->request->post('ciudad') . ' ' . Yii::$app->request->post('estado');
         $dataEnvio['ciudad'] = Yii::$app->request->post('ciudad');
         $dataEnvio['estado'] = Yii::$app->request->post('estado');
-        $dataEnvio['cp'] = Yii::$app->request->post('cp');
+        $dataEnvio['cp'] = $codigo_postal;
 
-        $sucursales = Tiendas::find()->all();
-        $sucursalId = (Yii::$app->request->post('inputSucursal')) ? Yii::$app->request->post('inputSucursal') : 0;
-        $sucursal = Tiendas::findOne($sucursalId);
+        try {
+            $sucursales = Tiendas::find()->all();
+            $sucursalId = (Yii::$app->request->post('inputSucursal')) ? Yii::$app->request->post('inputSucursal') : 0;
+            $sucursal = Tiendas::findOne($sucursalId);
 
-        $cart = Yii::$app->cart;
-        $cartPositions = $cart->getPositions();
+            $cart = Yii::$app->cart;
+            $cartPositions = $cart->getPositions();
+            $precioTotal = 0;
 
-        //Encontrar distancia entre codigos postales
+            if ($sucursal) {
+                $direccion = Codigos::find()
+                    ->where(['<=', 'cp_from', $codigo_postal])
+                    ->andWhere(['>=', 'cp_to', $codigo_postal])->one();
+
+                $query = new Query();
+                $distanceQuery = $query->select("ST_Distance_Sphere(
+                (select coordenada FROM tiendas WHERE id = {$sucursalId}),
+                (select coordenada FROM codigos WHERE id = {$direccion->id})
+                ) as distance")->one();
+                $distance = $distanceQuery['distance'];
+
+                $kms  = floor($distance / 1000);
+                $envios = Envios::find()
+                    ->where(['<=', 'min', $kms])
+                    ->andWhere(['>=', 'max', $kms])->one();
+
+                $costoEnvio = ($envios) ? $envios->precio : 'A calcular';
+
+                foreach ($cartPositions as $cartPosition) {
+                    $idProduct = $cartPosition->getId();
+                    $quantity = $cartPosition->getQuantity();
+                    $model = Productos::findOne($idProduct);
+                    if ($model) {
+                        $cart->remove($cartPosition);
+                        $tiendasProductos = TiendasProductos::find()
+                            ->where(['tiendas_id' => $sucursalId])
+                            ->andWhere(['productos_id' => $idProduct])->one();
+                        $precio = $tiendasProductos->precio;
+                        $model->setPrice($precio);
+                        $precioTotal += $precio;
+                        $cart->put($model, $quantity);
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            exit(var_dump($e->getMessage()));
+            Yii::info($e->getMessage());
+            return $this->redirect(['site/carrito']);
+        }
 
         return $this->render('pago', [
             'dataEnvio' => $dataEnvio,
-            'cartPositions' => $cartPositions,
+            'cartPositions' => $cart->getPositions(),
             'sucursales' => $sucursales,
             'sucursalSelected' => $sucursal,
             'sucursalId' => $sucursalId,
+            'costoEnvio' => $costoEnvio,
+            'direccion' => $direccion,
+            'precioTotal' => $precioTotal,
         ]);
 
     }
@@ -333,6 +386,7 @@ class SiteController extends Controller
 
         $model = Productos::findOne($id);
         if ($model) {
+            $model->setPrice(0);
             $cart->put($model, $cantidad);
             return $this->redirect(['index']);
         }

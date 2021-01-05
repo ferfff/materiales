@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tiendas".
@@ -12,11 +14,12 @@ use Yii;
  * @property string $cp
  * @property string $direccion
  * @property string $telefono
+ * @property string $coordenada
  *
  * @property TiendasProductos[] $tiendasProductos
  * @property Productos[] $productos
  */
-class Tiendas extends \yii\db\ActiveRecord
+class Tiendas extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -54,20 +57,20 @@ class Tiendas extends \yii\db\ActiveRecord
     /**
      * Gets query for [[TiendasProductos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTiendasProductos()
     {
-        return $this->hasMany(TiendasProductos::className(), ['tiendas_id' => 'id']);
+        return $this->hasMany(TiendasProductos::class, ['tiendas_id' => 'id']);
     }
 
     /**
      * Gets query for [[Productos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getProductos()
     {
-        return $this->hasMany(Productos::className(), ['id' => 'productos_id'])->viaTable('tiendas_productos', ['tiendas_id' => 'id']);
+        return $this->hasMany(Productos::class, ['id' => 'productos_id'])->viaTable('tiendas_productos', ['tiendas_id' => 'id']);
     }
 }

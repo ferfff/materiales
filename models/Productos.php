@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yz\shoppingcart\CartPositionInterface;
 use yz\shoppingcart\CartPositionTrait;
 
@@ -17,13 +19,14 @@ use yz\shoppingcart\CartPositionTrait;
  * @property string|null $categoria
  * @property string|null $foto
  * @property string|null $dimension
+ * @property float|null $price
  *
  * @property PedidosProductos[] $pedidosProductos
  * @property Pedidos[] $pedidos
  * @property TiendasProductos[] $tiendasProductos
  * @property Tiendas[] $tiendas
  */
-class Productos extends \yii\db\ActiveRecord implements CartPositionInterface
+class Productos extends ActiveRecord implements CartPositionInterface
 {
     use CartPositionTrait;
 
@@ -66,11 +69,6 @@ class Productos extends \yii\db\ActiveRecord implements CartPositionInterface
         ];
     }
 
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
     public function getId()
     {
         return $this->id;
@@ -79,7 +77,7 @@ class Productos extends \yii\db\ActiveRecord implements CartPositionInterface
     /**
      * Gets query for [[PedidosProductos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPedidosProductos()
     {
@@ -89,7 +87,7 @@ class Productos extends \yii\db\ActiveRecord implements CartPositionInterface
     /**
      * Gets query for [[Categorias]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategorias()
     {
@@ -99,7 +97,7 @@ class Productos extends \yii\db\ActiveRecord implements CartPositionInterface
     /**
      * Gets query for [[Pedidos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPedidos()
     {
@@ -109,20 +107,30 @@ class Productos extends \yii\db\ActiveRecord implements CartPositionInterface
     /**
      * Gets query for [[TiendasProductos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTiendasProductos()
     {
-        return $this->hasMany(TiendasProductos::className(), ['productos_id' => 'id']);
+        return $this->hasMany(TiendasProductos::class, ['productos_id' => 'id']);
     }
 
     /**
      * Gets query for [[Tiendas]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTiendas()
     {
         return $this->hasMany(Tiendas::class, ['id' => 'tiendas_id'])->viaTable('tiendas_productos', ['productos_id' => 'id']);
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    public function setPrice($price)
+    {
+        $this->price = $price;
     }
 }

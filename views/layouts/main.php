@@ -89,15 +89,17 @@ $this->beginPage() ?>
                 <div class="col-sm-12 col-md-12 col-lg-5">
                     <ul class="nav_login text-center p-2">
                         <?php
-                        $email = Yii::$app->user->identity->getEmail();
-                        echo (Yii::$app->user->isGuest)
-                            ? <<<HTML
+                        if (Yii::$app->user->isGuest) {
+                            echo <<<HTML
 <li><a class="nav-link text-light p-2" href="/site/login">Iniciar Sesión</a></li>
-HTML
-                            : <<<HTML
+HTML;
+                        } else {
+                                $email = Yii::$app->user->identity->getEmail();
+                                echo <<<HTML
 <li title="{$email}"><a class="nav-link text-light p-2" href="/site/logout">
 <i class="fas fa-user"></i> Finalizar Sesión</a></li>
 HTML;
+                            }
                         ?>
                         <li> |</li>
                         <li>

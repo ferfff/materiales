@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "codigos".
@@ -13,12 +13,12 @@ use Yii;
  * @property int $cp_to
  * @property string $coordenada
  */
-class Codigos extends \yii\db\ActiveRecord
+class Codigos extends ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'codigos';
     }
