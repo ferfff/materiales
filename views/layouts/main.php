@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use app\models\Categorias;
+use app\models\User;
 use yii\helpers\Html;
 use yii\web\View;
 use app\assets\AppAsset;
@@ -110,10 +111,18 @@ HTML;
                                 </a>
                             </div>
                         </li>
-                        <li> |</li>
-                        <li>
-                            <a class="nav-link text-light p-2" href="#">Administración</a>
-                        </li>
+                        <?php
+                        $id = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : '';
+                        if (User::isAdmin($id)) {
+                            echo <<<HTML
+<li> |</li>
+<li>
+    <a class="nav-link text-light p-2" href="/envios/index">Administración</a>
+</li>
+HTML;
+                        } else {
+                            echo '';
+                        } ?>
                     </ul>
                 </div>
             </div>

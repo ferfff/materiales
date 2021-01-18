@@ -50,7 +50,7 @@ YiiAsset::register($this);
                     <div class="card bg-light py-3 mb-3">
                         <div class="col mb-3">
                             <h4 class="font-weight-bold text_red">Información de Envío</h4>
-                            <p><?= $dataEnvio['nombre'] ?></p>
+                            <p><?= $dataEnvio['nombreCompleto'] ?></p>
                             <p><?= $dataEnvio['email'] ?></p>
                             <p><?= $dataEnvio['direccion'] ?></p>
                             <p><?= $dataEnvio['ciudad'] ?></p>
@@ -91,22 +91,31 @@ HTML;
                             ?>
                         </div>
                     </div>
-                    <div class="card bg-light">
-                        <div class="row row-cols-2 px-3 my-3 font-weight-bold">
-                            <div class="col"><p>Subtotal</p></div>
-                            <div class="col direction-r">$<?= $precioTotal ?></div>
-                            <div class="col">Costo de Envío</div>
-                            <div class="col direction-r">$<?= $costoEnvio ?></div>
-                            <div class="border-top mt-2 pt-2"></div>
-                            <div class="border-top mt-2 pt-2"></div>
-                            <div class="col mt-2 pt-2">Total</div>
-                            <div class="col direction-r cost mt-2">$<?= $costoEnvio + $precioTotal ?></div>
+                    <form action="/site/gracias" method="post">
+                        <div class="card bg-light">
+                            <div class="row row-cols-2 px-3 my-3 font-weight-bold">
+                                <div class="col"><p>Subtotal</p></div>
+                                <div class="col direction-r">$<?= $precioTotal ?></div>
+                                <input type="hidden" name="costo_total" value="<?= $precioTotal ?>">
+                                <div class="col">Costo de Envío</div>
+                                <div class="col direction-r">$<?= $costoEnvio ?></div>
+                                <input type="hidden" name="costo_envio" value="<?= $costoEnvio ?>">
+                                <div class="border-top mt-2 pt-2"></div>
+                                <div class="border-top mt-2 pt-2"></div>
+                                <div class="col mt-2 pt-2">Total</div>
+                                <div class="col direction-r cost mt-2">$<?= $costoEnvio + $precioTotal ?></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="direction-l">
-                        <a href="compra">
+                        <?php
+                        $direccion = $dataEnvio['direccion'] . ' ' . $dataEnvio['ciudad'] . ' ' . $dataEnvio['cp'];
+                        $datos = 'Nombre: ' . $dataEnvio['nombreCompleto'] . ' EMail: ' . $dataEnvio['email'];
+                        ?>
+                        <input type="hidden" name="direccion" value="<?= $direccion ?>">
+                        <input type="hidden" name="datos" value="<?= $datos ?>">
+                        <div class="direction-l">
                             <button type="submit" class="btn btn-primary btn-block rounded-pill mt-3">Comprar productos</button>
-                    </div>
+                        </div>
+                    </form>
                 </div>
 
             </div>

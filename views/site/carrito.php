@@ -38,7 +38,7 @@ use yii\helpers\Html;
                     ]) ?>
                         <div class="form-row">
                             <div class="form-group col-md-6 p_12">
-                                <label for="inputName">Nombre(s)</label>
+                                <label for="inputName">Nombre Completo</label>
                                 <input name="nombre" type="text" class="form-control rounded-pill p_14" id="inputName"
                                        placeholder="Escribe tu(s) nombre(s)" value="<?= $user->nombre ?>">
                             </div>

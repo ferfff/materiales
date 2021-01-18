@@ -7,7 +7,7 @@
         <div class="card-body p-5">
             <h1 class="font-weight-bold mb-5 text_red">Revisa tu correo</h1>
             <p>Se envió un correo a <b>"aquí va el correo"</b> verfica tu bandeja de entrada.</p>
-            <a href="index"><button type="button" class="btn btn-primary mt-4 rounded-pill">Ir a inicio</button></a>
+            <a href="/"><button type="button" class="btn btn-primary mt-4 rounded-pill">Ir a inicio</button></a>
         </div>
         </div>
     </div>

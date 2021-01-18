@@ -8,11 +8,13 @@ use Yii;
  * This is the model class for table "pedidos".
  *
  * @property int $id
- * @property int $users_id
+ * @property int|null $users_id
  * @property float $precioenvio
- * @property int|null $kilometros
  * @property string $estatus
  * @property string|null $direccion_envio
+ * @property float $preciototal
+ * @property string|null $datos
+ * @property string|null $date
  *
  * @property Users $users
  * @property PedidosProductos[] $pedidosProductos
@@ -34,11 +36,13 @@ class Pedidos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['users_id', 'precioenvio'], 'required'],
-            [['users_id', 'kilometros'], 'integer'],
-            [['precioenvio'], 'number'],
+            [['users_id'], 'integer'],
+            [['precioenvio', 'preciototal'], 'required'],
+            [['precioenvio', 'preciototal'], 'number'],
             [['estatus', 'direccion_envio'], 'string'],
-            [['users_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['users_id' => 'id']],
+            [['date'], 'safe'],
+            [['datos'], 'string', 'max' => 255],
+            [['users_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['users_id' => 'id']],
         ];
     }
 
@@ -51,9 +55,11 @@ class Pedidos extends \yii\db\ActiveRecord
             'id' => 'ID',
             'users_id' => 'Users ID',
             'precioenvio' => 'Precioenvio',
-            'kilometros' => 'Kilometros',
             'estatus' => 'Estatus',
             'direccion_envio' => 'Direccion Envio',
+            'preciototal' => 'Preciototal',
+            'datos' => 'Datos',
+            'date' => 'Date',
         ];
     }
 
@@ -64,7 +70,7 @@ class Pedidos extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasOne(Users::className(), ['id' => 'users_id']);
+        return $this->hasOne(User::class, ['id' => 'users_id']);
     }
 
     /**
@@ -74,7 +80,7 @@ class Pedidos extends \yii\db\ActiveRecord
      */
     public function getPedidosProductos()
     {
-        return $this->hasMany(PedidosProductos::className(), ['pedidos_id' => 'id']);
+        return $this->hasMany(PedidosProductos::class, ['pedidos_id' => 'id']);
     }
 
     /**
@@ -84,6 +90,6 @@ class Pedidos extends \yii\db\ActiveRecord
      */
     public function getProductos()
     {
-        return $this->hasMany(Productos::className(), ['id' => 'productos_id'])->viaTable('pedidos_productos', ['pedidos_id' => 'id']);
+        return $this->hasMany(Productos::class, ['id' => 'productos_id'])->viaTable('pedidos_productos', ['pedidos_id' => 'id']);
     }
 }

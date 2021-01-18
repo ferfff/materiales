@@ -74,34 +74,34 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $idCategoria = Yii::$app->request->get('id');
+        $idCategory = Yii::$app->request->get('id');
 
-        if ($idCategoria) {
-            $productos = Productos::find()
+        if ($idCategory) {
+            $products = Productos::find()
                 ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
-                ->where(['categorias.id' => $idCategoria])
+                ->where(['categorias.id' => $idCategory])
                 ->orderBy('productos.categoria')
                 ->all();
-            $categoria = Categorias::findOne($idCategoria);
-            $categoriaName = $categoria->categoria;
+            $category = Categorias::findOne($idCategory);
+            $categoryName = $category->categoria;
         } else {
-            $productos = Productos::find()
+            $products = Productos::find()
                 ->orderBy('categoria')
                 ->all();
-            $categoriaName = 'Nuestros productos';
+            $categoryName = 'Nuestros productos';
         }
 
-        $productosTop = Productos::find()
+        $productsTop = Productos::find()
             ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
             ->innerJoin('tiendas_productos as tp', 'tp.productos_id = productos.id')
-            ->where(['categorias.id' => $idCategoria])
+            ->where(['categorias.id' => $idCategory])
             ->limit(4)
             ->all();
 
         return $this->render('index', [
-            'productos' => $productos,
-            'productosTop' => $productosTop,
-            'categoriaName' => $categoriaName,
+            'productos' => $products,
+            'productosTop' => $productsTop,
+            'categoriaName' => $categoryName,
         ]);
     }
 
@@ -198,7 +198,6 @@ class SiteController extends Controller
 
     /**
      * Delete a single Product to cart.
-     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -223,47 +222,47 @@ class SiteController extends Controller
      */
     public function actionPago()
     {
-        $codigo_postal = Yii::$app->request->post('cp');
-        $costoEnvio = 0;
-        $direccion = '';
-        $dataEnvio = [];
-        $dataEnvio['nombreCompleto'] = Yii::$app->request->post('nombre') . ' ' . Yii::$app->request->post('apellidos');
-        $dataEnvio['nombre'] = Yii::$app->request->post('nombre');
-        $dataEnvio['apellidos'] = Yii::$app->request->post('apellidos');
-        $dataEnvio['email'] = Yii::$app->request->post('email');
-        $dataEnvio['direccion'] = Yii::$app->request->post('direccion');
-        $dataEnvio['ciudadCompleta'] = Yii::$app->request->post('ciudad') . ' ' . Yii::$app->request->post('estado');
-        $dataEnvio['ciudad'] = Yii::$app->request->post('ciudad');
-        $dataEnvio['estado'] = Yii::$app->request->post('estado');
-        $dataEnvio['cp'] = $codigo_postal;
+        $cp = Yii::$app->request->post('cp');
+        $sentCost = 0;
+        $direction = '';
+        $sentData = [];
+        $sentData['nombreCompleto'] = Yii::$app->request->post('nombre') . ' ' . Yii::$app->request->post('apellidos');
+        $sentData['nombre'] = Yii::$app->request->post('nombre');
+        $sentData['apellidos'] = Yii::$app->request->post('apellidos');
+        $sentData['email'] = Yii::$app->request->post('email');
+        $sentData['direccion'] = Yii::$app->request->post('direccion');
+        $sentData['ciudadCompleta'] = Yii::$app->request->post('ciudad') . ' ' . Yii::$app->request->post('estado');
+        $sentData['ciudad'] = Yii::$app->request->post('ciudad');
+        $sentData['estado'] = Yii::$app->request->post('estado');
+        $sentData['cp'] = $cp;
 
         try {
-            $sucursales = Tiendas::find()->all();
-            $sucursalId = (Yii::$app->request->post('inputSucursal')) ? Yii::$app->request->post('inputSucursal') : 0;
-            $sucursal = Tiendas::findOne($sucursalId);
+            $branchOffices = Tiendas::find()->all();
+            $branchOfficeId = (Yii::$app->request->post('inputSucursal')) ? Yii::$app->request->post('inputSucursal') : 0;
+            $branchOffice = Tiendas::findOne($branchOfficeId);
 
             $cart = Yii::$app->cart;
             $cartPositions = $cart->getPositions();
-            $precioTotal = 0;
+            $priceTotal = 0;
 
-            if ($sucursal) {
-                $direccion = Codigos::find()
-                    ->where(['<=', 'cp_from', $codigo_postal])
-                    ->andWhere(['>=', 'cp_to', $codigo_postal])->one();
+            if ($branchOffice) {
+                $direction = Codigos::find()
+                    ->where(['<=', 'cp_from', $cp])
+                    ->andWhere(['>=', 'cp_to', $cp])->one();
 
                 $query = new Query();
                 $distanceQuery = $query->select("ST_Distance_Sphere(
-                (select coordenada FROM tiendas WHERE id = {$sucursalId}),
-                (select coordenada FROM codigos WHERE id = {$direccion->id})
+                (select coordenada FROM tiendas WHERE id = {$branchOfficeId}),
+                (select coordenada FROM codigos WHERE id = {$direction->id})
                 ) as distance")->one();
                 $distance = $distanceQuery['distance'];
 
                 $kms  = floor($distance / 1000);
-                $envios = Envios::find()
+                $shipping = Envios::find()
                     ->where(['<=', 'min', $kms])
                     ->andWhere(['>=', 'max', $kms])->one();
 
-                $costoEnvio = ($envios) ? $envios->precio : 'A calcular';
+                $sentCost = ($shipping) ? $shipping->precio : 'A calcular';
 
                 foreach ($cartPositions as $cartPosition) {
                     $idProduct = $cartPosition->getId();
@@ -272,11 +271,11 @@ class SiteController extends Controller
                     if ($model) {
                         $cart->remove($cartPosition);
                         $tiendasProductos = TiendasProductos::find()
-                            ->where(['tiendas_id' => $sucursalId])
+                            ->where(['tiendas_id' => $branchOfficeId])
                             ->andWhere(['productos_id' => $idProduct])->one();
                         $precio = $tiendasProductos->precio;
                         $model->setPrice($precio);
-                        $precioTotal += $precio;
+                        $priceTotal += $precio;
                         $cart->put($model, $quantity);
                     }
                 }
@@ -288,16 +287,15 @@ class SiteController extends Controller
         }
 
         return $this->render('pago', [
-            'dataEnvio' => $dataEnvio,
+            'dataEnvio' => $sentData,
             'cartPositions' => $cart->getPositions(),
-            'sucursales' => $sucursales,
-            'sucursalSelected' => $sucursal,
-            'sucursalId' => $sucursalId,
-            'costoEnvio' => $costoEnvio,
-            'direccion' => $direccion,
-            'precioTotal' => $precioTotal,
+            'sucursales' => $branchOffices,
+            'sucursalSelected' => $branchOffice,
+            'sucursalId' => $branchOfficeId,
+            'costoEnvio' => $sentCost,
+            'direccion' => $direction,
+            'precioTotal' => $priceTotal,
         ]);
-
     }
 
     /**
@@ -345,6 +343,52 @@ class SiteController extends Controller
      *
      * @return string
      */
+    public function actionGracias()
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $idUser = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : 'NULL';
+
+        try {
+            $costoEnvio = Yii::$app->request->post('costo_envio');
+            $direccion = Yii::$app->request->post('direccion');
+            $costoTotal = Yii::$app->request->post('costo_total');
+            $datos = Yii::$app->request->post('datos');
+            $cart = Yii::$app->cart;
+
+            $today = date('Y-m-d H:i:s');
+            $insertEnvio = "INSERT INTO pedidos VALUES (NULL, $idUser, $costoEnvio, 'draft', '$direccion', $costoTotal, '$datos', '$today')";
+
+            $db->createCommand($insertEnvio)->execute();
+            $idPedido = Yii::$app->db->getLastInsertID();
+
+            $cartPositions = $cart->getPositions();
+            foreach ($cartPositions as $cartPosition) {
+                $idProduct = $cartPosition->getId();
+                $quantity = $cartPosition->getQuantity();
+                $precio = $cartPosition->getPrice();
+
+                $insertPedidosProducto = "INSERT INTO pedidos_productos VALUES ($idPedido, $idProduct, $quantity, $precio)";
+                $db->createCommand($insertPedidosProducto)->execute();
+            }
+
+            $transaction->commit();
+            $cart->removeAll();
+            //Send email
+        } catch (Exception $e) {
+            exit(var_dump($e->getMessage()));
+            Yii::info($e->getMessage());
+            $transaction->rollBack();
+        }
+
+        return $this->render('gracias');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
     public function actionProductos()
     {
         return $this->render('productos');
@@ -367,13 +411,14 @@ class SiteController extends Controller
      */
     public function actionRecovery()
     {
-        return $this->render('recovery');
+        $email = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getEmail() : null;
+        return $this->render('recovery', [
+            'email' => $email
+        ]);
     }
-
 
     /**
      * Adding a single Product to cart.
-     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */

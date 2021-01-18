@@ -28,8 +28,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const ROLE_USER = 1;
-    const ROLE_ADMIN = 2;
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
 
     public $old_password;
     public $new_password;
@@ -138,7 +138,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function isAdmin($id)
     {
-        if (static::findOne(['id' => $id, 'nivel' => self::ROLE_ADMIN])){
+        if (static::findOne(['id' => $id, 'tipo' => self::ROLE_ADMIN])){
             return true;
         } else {
             return false;
