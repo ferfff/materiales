@@ -39,9 +39,9 @@ use yii\helpers\Html;
                             <div class="card-body">
                                 <?= Html::tag('h5', Html::encode($productoTop->nombre), ['class' => 'header_product']) ?>
                                 <?= Html::tag('p', Html::encode($productoTop->descripcion), ['class' => 'p_descripcion mb-3']) ?>
-                                <?= Html::a('Ver detalle', ['productos/view', 'id' => $productoTop->id], ['class' => "btn btn-primary rounded-pill btn-sm my-2"]) ?>
+                                <?= Html::a('Ver detalle', ['productos/view', 'id' => $productoTop->id], ['class' => "btn btn-primary btn-sm my-2"]) ?>
                                 <?= Html::hiddenInput('id', $productoTop->id, []) ?>
-                                <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-warning rounded-pill btn-sm"]) ?>
+                                <?= Html::submitButton('Añadir al carrito', ['class' => "btn btn-warning btn-sm"]) ?>
                             </div>
                         </div>
                     </div>
@@ -86,9 +86,9 @@ use yii\helpers\Html;
                         <?= Html::img('/images/' . $producto->foto, ['class' => 'card-img-top', 'alt' => "Imagen"]); ?>
                         <?= Html::tag('h5', Html::encode($producto->nombre), ['class' => 'header_product']) ?>
                         <?= Html::tag('p', Html::encode($producto->descripcion), ['class' => 'p_descripcion']) ?>
-                        <?= Html::a('Ver detalle <i class="fas fa-angle-right"></i>', ['productos/view', 'id' => $producto->id], ['class' => "btn btn-primary rounded-pill my-2"]) ?>
+                        <?= Html::a('Ver detalle <i class="fas fa-angle-right"></i>', ['productos/view', 'id' => $producto->id], ['class' => "btn btn-primary my-2"]) ?>
                         <?= Html::hiddenInput('id', $producto->id, []) ?>
-                        <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-warning rounded-pill"]) ?>
+                        <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-warning"]) ?>
                     </div>
                 </div>
             </div>

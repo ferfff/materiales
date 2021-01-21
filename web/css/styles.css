@@ -210,7 +210,21 @@ img.icon{
     height: 500px;
 }
 
-
+select {
+    display: block;
+    width: 100%;
+    height: calc(1.4em + 0.75rem + 2px);
+    padding: 0.386rem 0.76rem;
+    font-size: 0.92rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
 
 @media (max-width: 994px) {
     .nav_contact{

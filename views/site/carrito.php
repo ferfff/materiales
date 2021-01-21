@@ -39,47 +39,47 @@ use yii\helpers\Html;
                         <div class="form-row">
                             <div class="form-group col-md-6 p_12">
                                 <label for="inputName">Nombre Completo</label>
-                                <input name="nombre" type="text" class="form-control rounded-pill p_14" id="inputName"
+                                <input name="nombre" type="text" class="form-control p_14" id="inputName"
                                        placeholder="Escribe tu(s) nombre(s)" value="<?= $user->nombre ?>">
                             </div>
                             <div class="form-group col-md-6 p_12">
                                 <label for="inputApellidos">Apellidos</label>
-                                <input name="apellidos" type="text" class="form-control rounded-pill p_14" id="inputApellidos"
+                                <input name="apellidos" type="text" class="form-control p_14" id="inputApellidos"
                                        placeholder="Escribe tu apellido" value="<?= $user->apellidos ?>">
                             </div>
                         </div>
                         <div class="form-group p_12">
                             <label for="inputDirección">Dirección</label>
-                            <input name="direccion" type="text" class="form-control rounded-pill p_14" id="inputDirección"
+                            <input name="direccion" type="text" class="form-control p_14" id="inputDirección"
                                    placeholder="Escribe tu dirección y número"
                                    value="<?= $user->direccion ?>">
                         </div>
                         <div class="form-row p_12">
-                            <div class="form-group col-md-9">
+                            <div class="form-group col-md-12">
                                 <label for="inputEmail">Correo</label>
-                                <input name="email" type="email" class="form-control rounded-pill p_14" id="inputEmail"
+                                <input name="email" type="email" class="form-control p_14" id="inputEmail"
                                        placeholder="Escribe tu correo" value="<?= $user->email ?>">
-                            </div>
-                            <div class="form-group col-md-3 p_12">
-                                <label for="inputCP">C.P.</label>
-                                <input name="cp" type="text" class="form-control rounded-pill p_14" id="inputCP"
-                                       placeholder="Ejem. 37000" value="<?= $user->cp ?>">
                             </div>
                         </div>
                         <div class="form-row p_12">
-                            <div class="form-group col-md-5 p_12">
+                            <div class="form-group col-md-6 p_12">
+                                <label for="inputCP">C.P.</label>
+                                <input name="cp" type="text" class="form-control p_14" id="inputCP"
+                                    placeholder="Ejem. 37000" value="<?= $user->cp ?>">
+                            </div>
+                            <div class="form-group col-md-6 p_12">
                                 <label for="inputTelefono">Teléfono</label>
-                                <input name="telefono" type="text" class="form-control rounded-pill p_14" id="inputTelefono"
+                                <input name="telefono" type="text" class="form-control p_14" id="inputTelefono"
                                        placeholder="123-456-890" value="<?= $user->telefono ?>">
                             </div>
                         </div>
                         <div class="form-row p_12">
-                            <div class="form-group col-md-7">
+                            <div class="form-group col-md-6">
                                 <label for="inputCiudad">Ciudad</label>
-                                <input name="ciudad" type="text" class="form-control rounded-pill p_14" id="inputCiudad"
+                                <input name="ciudad" type="text" class="form-control p_14" id="inputCiudad"
                                        placeholder="Escribe tu ciudad" value="<?= $user->ciudad ?>">
                             </div>
-                            <div class="form-group col-md-5 p_12">
+                            <div class="form-group col-md-6 p_12">
                                 <label for="inputEstado" class="form-label">Estado </label>
                                 <select name="estado" id="inputEstado" class="form-select">
                                     <?php
@@ -95,7 +95,7 @@ HTML;
                         </div>
                         <div class="direction-r">
                             <?php if(!empty($cartPositions)) { ?>
-                                <button type="submit" class="btn btn-primary rounded-pill mt-5">
+                                <button type="submit" class="btn btn-primary mt-5">
                                     Proceder al pago <i class="fas fa-angle-right"></i>
                                 </button>
                             <?php } ?>

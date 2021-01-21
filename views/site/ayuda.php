@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="red_back direction-l rounded">Preguntas Frecuentes</h1>
+      <h1 class="red_back direction-l rounded pl-4">Preguntas Frecuentes</h1>
     </div>
   </div>
 </div>

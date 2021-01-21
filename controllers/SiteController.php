@@ -345,7 +345,7 @@ class SiteController extends Controller
      */
     public function actionGracias()
     {
-        $db = Yii::$app->db;
+        /** $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
         $idUser = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : 'NULL';
 
@@ -379,10 +379,10 @@ class SiteController extends Controller
             exit(var_dump($e->getMessage()));
             Yii::info($e->getMessage());
             $transaction->rollBack();
-        }
-
+        } */
+                
         return $this->render('gracias');
-    }
+    } 
 
     /**
      * Displays about page.

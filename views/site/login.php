@@ -51,24 +51,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="form-group col-md-4 p_12">
                         <?= $form->field($newModel, 'telefono') ?>
                     </div>
-                    <div class="form-group col-md-12 p_12">
+                    <div class="form-group col-md-10 p_12">
                         <?= $form->field($newModel, 'direccion') ?>
-                    </div>
-                    <div class="form-group col-md-5 p_12">
-                        <?= $form->field($newModel, 'ciudad') ?>
-                    </div>
-                    <div class="form-group col-md-5 p_12">
-                        <?= $form->field($newModel, 'estado') ?>
                     </div>
                     <div class="form-group col-md-2 p_12">
                         <?= $form->field($newModel, 'cp') ?>
                     </div>
                     <div class="form-group col-md-6 p_12">
+                        <?= $form->field($newModel, 'ciudad') ?>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="standard-select"><span class="p_12">Estado<span></label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group col-md-12 p_12">
                         <?= $form->field($newModel, 'password')->passwordInput() ?>
                     </div>
                 </div>
                 <div class="direction-l">
-                    <?= Html::submitButton(Yii::t('app', 'Crear Cuenta'), ['class' => 'btn btn-primary rounded-pill mt-3 btn-block']) ?>
+                    <?= Html::submitButton(Yii::t('app', 'Crear Cuenta'), ['class' => 'btn btn-primary mt-3 btn-block']) ?>
                 </div>
                 <?php ActiveForm::end();
                 Pjax::end(); ?>
@@ -88,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group p_14">
                     <?= $form2->field($model, 'rememberMe')->checkbox()->label('Recordarme') ?>
                 </div>
-                <?= Html::submitButton('Iniciar Sesión', ['class' => 'btn btn-primary btn-block rounded-pill my-4', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Iniciar Sesión', ['class' => 'btn btn-primary btn-block my-4', 'name' => 'login-button']) ?>
                 <a href="/site/recovery"><p class="text_red">¿Olvidaste tu contraseña?</p></a>
                 <?php ActiveForm::end(); ?>
             </div>

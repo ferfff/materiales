@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="red_back direction-l rounded">Contacto</h1>
+      <h1 class="red_back direction-l rounded pl-4">Contacto</h1>
 
       <div class="card">
         <div class="card-body p-4">
@@ -135,14 +135,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-row">
                   <div class="col-md-12 mb-3">
                     <label for="validationTooltip01">Nombre</label>
-                    <input type="text" class="form-control rounded-pill" id="validationTooltip01" required>
+                    <input type="text" class="form-control" id="validationTooltip01" required>
                     <div class="valid-tooltip">
                       Escriba su nombre
                     </div>
                   </div>
                   <div class="col-md-12 mb-3">
                     <label for="validationTooltip02">Correo</label>
-                    <input type="text" class="form-control rounded-pill" id="validationTooltip02" required>
+                    <input type="text" class="form-control" id="validationTooltip02" required>
                     <div class="valid-tooltip">
                       Escriba su correo
                     </div>
@@ -156,7 +156,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   </div>
                 </div>
                 <div class="text-center">
-                  <a href="mensaje.php"><button type="button" class="btn btn-primary rounded-pill">Enviar</button></a>
+                  <a href="mensaje.php"><button type="button" class="btn btn-primary">Enviar</button></a>
                 </div>
               </form>
             </div>
