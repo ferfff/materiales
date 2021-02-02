@@ -6,7 +6,6 @@ use app\models\LoginForm;
 use app\models\User;
 use Yii;
 use app\models\UsersSearch;
-use yii\base\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -57,39 +56,6 @@ class UsersController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-    }
-
-    /**
-     * Creates a new Users model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     * @throws Exception
-     */
-    public function actionCreate()
-    {
-        $model = new User();
-
-        if ($model->load(Yii::$app->request->post())) {
-            $identity = new LoginForm();
-            $identity->email = $model->email;
-            $identity->password = $model->password;
-
-            $passwordNormal = $model->password;
-            $model->authKey = rand() . trim($model->id);
-            $model->password = Yii::$app->getSecurity()->generatePasswordHash($passwordNormal);
-
-            if ($model->save() && $identity->login()) {
-                /*Yii::$app->mailer->compose(['html' => '@app/mail/newuser'], ['password' => $passwordNormal, 'id' => $model->id, ])
-                    ->setFrom('contacto@materiales.com.mx')
-                    ->setTo($model->email)
-                    ->setSubject('Nuevo usuario creado en Materiales')
-                    ->send();*/
-            } else {
-                return $this->redirect('/site/login');
-            }
-        }
-
-        return $this->redirect('/site/index');
     }
 
     /**

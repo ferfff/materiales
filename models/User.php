@@ -51,10 +51,14 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['nombre', 'apellidos', 'telefono', 'email', 'direccion', 'cp', 'ciudad', 'estado', 'password'], 'required'],
             [['tipo'], 'string'],
-            [['nombre', 'telefono', 'email', 'authKey'], 'string', 'max' => 50],
-            [['apellidos', 'estado', 'password'], 'string', 'max' => 100],
-            [['direccion'], 'string', 'max' => 200],
-            [['cp', 'ciudad'], 'string', 'max' => 45],
+            ['email', 'unique'],
+            ['email', 'email'],
+            [['nombre', 'apellidos', 'ciudad', 'email', 'authKey'], 'string', 'length' => [4, 50]],
+            [['password'], 'string', 'length' => [8, 100]],
+            [['telefono'], 'string', 'length' => [8, 50]],
+            [['direccion'], 'string', 'length' => [10, 100]],
+            [['estado'], 'in', 'range' => Yii::$app->params['estados']],
+            [['cp'], 'integer', 'min' => 10000, 'max' => 99999],
         ];
     }
 

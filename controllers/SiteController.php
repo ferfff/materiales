@@ -116,18 +116,42 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        $formName = Yii::$app->request->post('form');
+
+        // If new user form is called
+        $userModel = new User();
+        if ($formName === 'create') {
+            if ($userModel->load(Yii::$app->request->post())) {
+                $identity = new LoginForm();
+                $identity->email = $userModel->email;
+                $identity->password = $userModel->password;
+
+                $passwordNormal = $userModel->password;
+                $userModel->authKey = rand() . trim($userModel->id);
+                $userModel->password = Yii::$app->getSecurity()->generatePasswordHash($passwordNormal);
+
+                if ($userModel->save() && $identity->login()) {
+                    if ($userModel->validate()) {
+                        return $this->goHome();
+                    }
+                }
+            }
+        }
+
+        // If form login is called
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goHome();
+        if ($formName === 'login') {
+            if ($model->load(Yii::$app->request->post()) && $model->login()) {
+                return $this->goHome();
+            }
         }
 
         $model->password = '';
-
-        $newModel = new User();
+        $userModel->password = '';
 
         return $this->render('login', [
             'model' => $model,
-            'newModel' => $newModel,
+            'newModel' => $userModel,
         ]);
     }
 
@@ -257,7 +281,7 @@ class SiteController extends Controller
                 ) as distance")->one();
                 $distance = $distanceQuery['distance'];
 
-                $kms  = floor($distance / 1000);
+                $kms = floor($distance / 1000);
                 $shipping = Envios::find()
                     ->where(['<=', 'min', $kms])
                     ->andWhere(['>=', 'max', $kms])->one();
@@ -346,43 +370,43 @@ class SiteController extends Controller
     public function actionGracias()
     {
         /** $db = Yii::$app->db;
-        $transaction = $db->beginTransaction();
-        $idUser = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : 'NULL';
+         * $transaction = $db->beginTransaction();
+         * $idUser = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : 'NULL';
+         *
+         * try {
+         * $costoEnvio = Yii::$app->request->post('costo_envio');
+         * $direccion = Yii::$app->request->post('direccion');
+         * $costoTotal = Yii::$app->request->post('costo_total');
+         * $datos = Yii::$app->request->post('datos');
+         * $cart = Yii::$app->cart;
+         *
+         * $today = date('Y-m-d H:i:s');
+         * $insertEnvio = "INSERT INTO pedidos VALUES (NULL, $idUser, $costoEnvio, 'draft', '$direccion', $costoTotal, '$datos', '$today')";
+         *
+         * $db->createCommand($insertEnvio)->execute();
+         * $idPedido = Yii::$app->db->getLastInsertID();
+         *
+         * $cartPositions = $cart->getPositions();
+         * foreach ($cartPositions as $cartPosition) {
+         * $idProduct = $cartPosition->getId();
+         * $quantity = $cartPosition->getQuantity();
+         * $precio = $cartPosition->getPrice();
+         *
+         * $insertPedidosProducto = "INSERT INTO pedidos_productos VALUES ($idPedido, $idProduct, $quantity, $precio)";
+         * $db->createCommand($insertPedidosProducto)->execute();
+         * }
+         *
+         * $transaction->commit();
+         * $cart->removeAll();
+         * //Send email
+         * } catch (Exception $e) {
+         * exit(var_dump($e->getMessage()));
+         * Yii::info($e->getMessage());
+         * $transaction->rollBack();
+         * } */
 
-        try {
-            $costoEnvio = Yii::$app->request->post('costo_envio');
-            $direccion = Yii::$app->request->post('direccion');
-            $costoTotal = Yii::$app->request->post('costo_total');
-            $datos = Yii::$app->request->post('datos');
-            $cart = Yii::$app->cart;
-
-            $today = date('Y-m-d H:i:s');
-            $insertEnvio = "INSERT INTO pedidos VALUES (NULL, $idUser, $costoEnvio, 'draft', '$direccion', $costoTotal, '$datos', '$today')";
-
-            $db->createCommand($insertEnvio)->execute();
-            $idPedido = Yii::$app->db->getLastInsertID();
-
-            $cartPositions = $cart->getPositions();
-            foreach ($cartPositions as $cartPosition) {
-                $idProduct = $cartPosition->getId();
-                $quantity = $cartPosition->getQuantity();
-                $precio = $cartPosition->getPrice();
-
-                $insertPedidosProducto = "INSERT INTO pedidos_productos VALUES ($idPedido, $idProduct, $quantity, $precio)";
-                $db->createCommand($insertPedidosProducto)->execute();
-            }
-
-            $transaction->commit();
-            $cart->removeAll();
-            //Send email
-        } catch (Exception $e) {
-            exit(var_dump($e->getMessage()));
-            Yii::info($e->getMessage());
-            $transaction->rollBack();
-        } */
-                
         return $this->render('gracias');
-    } 
+    }
 
     /**
      * Displays about page.

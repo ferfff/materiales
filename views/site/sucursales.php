@@ -14,8 +14,8 @@
 <div class="container border-bottom pb-5">
 <div class="row">
     <div class="col-lg-12 p-0">
-    <h1 class="red_back direction-l rounded pl-4">Sucursales</h1>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2691140.2492120895!2d-101.92559595459274!3d21.324940645923903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m3!3e6!4m0!4m0!5e0!3m2!1ses-419!2smx!4v1605207731696!5m2!1ses-419!2smx" width="100%" height="550" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        <h1 class="red_back direction-l rounded pl-4">Sucursales</h1>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1NfqoVPaT0oYPOuV2263Tk-AXR9pMZBzY" width="100%" height="550"></iframe>
     </div>
 </div>
 </div>
