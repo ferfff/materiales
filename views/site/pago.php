@@ -83,9 +83,9 @@ HTML;
                         <div class="col my-3">
                             <?php
                             if ($sucursalId !== 0) {
-                                echo <<<HTML
-                        <p><b>{$sucursalSelected->ciudad}</b><p>
-                        <p>{$sucursalSelected->direccion} {$sucursalSelected->cp}</p>
+echo <<<HTML
+<p><b>{$sucursalSelected->ciudad}</b><p>
+<p>{$sucursalSelected->direccion} {$sucursalSelected->cp}</p>
 HTML;
                             }
                             ?>
@@ -108,12 +108,24 @@ HTML;
                         </div>
                         <?php
                         $direccion = $dataEnvio['direccion'] . ' ' . $dataEnvio['ciudad'] . ' ' . $dataEnvio['cp'];
-                        $datos = 'Nombre: ' . $dataEnvio['nombreCompleto'] . ' EMail: ' . $dataEnvio['email'];
+                        $nombre = $dataEnvio['nombreCompleto'];
+                        $email = $dataEnvio['email'];
                         ?>
                         <input type="hidden" name="direccion" value="<?= $direccion ?>">
-                        <input type="hidden" name="datos" value="<?= $datos ?>">
+                        <input type="hidden" name="nombre" value="<?= $nombre ?>">
+                        <input type="hidden" name="email" value="<?= $email ?>">
                         <div class="direction-l">
-                            <button type="submit" class="btn btn-primary btn-block rounded-pill mt-3">Comprar productos</button>
+                        <?php
+                        if ($sucursalId == 0) {
+echo <<<HTML
+<button type="submit" id="send" disabled class="btn btn-primary btn-block rounded-pill mt-3">Comprar productos</button>
+HTML;
+                        } else {
+                            echo <<<HTML
+<button type="submit" id="send" class="btn btn-primary btn-block rounded-pill mt-3">Comprar productos</button>
+HTML;
+                        }
+                        ?>
                         </div>
                     </form>
                 </div>
@@ -130,6 +142,8 @@ $jsCode = <<<JAVASCRIPT
         var sucursal = $(this).children("option:selected").val();
         if (sucursal != 0) {
             $("#select-sucursal").submit();
+        } else {
+            $("#send").attr("disabled", true);
         }
     });
 JAVASCRIPT;

@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "pedidos".
@@ -13,14 +13,15 @@ use Yii;
  * @property string $estatus
  * @property string|null $direccion_envio
  * @property float $preciototal
- * @property string|null $datos
+ * @property string|null $nombre
+ * @property string $email
  * @property string|null $date
  *
- * @property Users $users
+ * @property User $users
  * @property PedidosProductos[] $pedidosProductos
  * @property Productos[] $productos
  */
-class Pedidos extends \yii\db\ActiveRecord
+class Pedidos extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -41,7 +42,8 @@ class Pedidos extends \yii\db\ActiveRecord
             [['precioenvio', 'preciototal'], 'number'],
             [['estatus', 'direccion_envio'], 'string'],
             [['date'], 'safe'],
-            [['datos'], 'string', 'max' => 255],
+            ['email', 'email'],
+            [['nombre'], 'string', 'max' => 255],
             [['users_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['users_id' => 'id']],
         ];
     }
@@ -56,6 +58,7 @@ class Pedidos extends \yii\db\ActiveRecord
             'users_id' => 'Users ID',
             'precioenvio' => 'Precioenvio',
             'estatus' => 'Estatus',
+            'email' => 'E-mail',
             'direccion_envio' => 'Direccion Envio',
             'preciototal' => 'Preciototal',
             'datos' => 'Datos',

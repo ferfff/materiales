@@ -15,7 +15,7 @@
 <div class="row">
     <div class="col-lg-12 p-0">
         <h1 class="red_back direction-l rounded pl-4">Sucursales</h1>
-        <iframe src="https://www.google.com/maps/d/embed?mid=1NfqoVPaT0oYPOuV2263Tk-AXR9pMZBzY" width="100%" height="550"></iframe>
+        <iframe src="https://www.google.com/maps/d/embed?mid=1bulr4wfFOePK5VGkHq5fNja3iDtdaOZZ" width="100%" height="550"></iframe>
     </div>
 </div>
 </div>

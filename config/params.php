@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'adminEmail' => 'info@tiendafcfacil.com',
+    'senderEmail' => 'info@tiendafcfacil.com',
+    'senderName' => 'Tienda FC Facil',
     'estados' => [
         "Aguascalientes" => "Aguascalientes",
         "Baja California" => "Baja California",

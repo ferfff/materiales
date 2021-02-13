@@ -132,6 +132,12 @@ class SiteController extends Controller
 
                 if ($userModel->save() && $identity->login()) {
                     if ($userModel->validate()) {
+                        Yii::$app->mailer->compose(['html' => '@app/mail/newuser'], ['password' => $passwordNormal, 'nombre' => $userModel->nombre,])
+                            ->setFrom('info@tiendafcfacil.com')
+                            ->setTo($userModel->email)
+                            ->setSubject('Bienvenido a Tienda FC Fácil')
+                            ->send();
+
                         return $this->goHome();
                     }
                 }
@@ -305,8 +311,6 @@ class SiteController extends Controller
                 }
             }
         } catch (Exception $e) {
-            exit(var_dump($e->getMessage()));
-            Yii::info($e->getMessage());
             return $this->redirect(['site/carrito']);
         }
 
@@ -369,41 +373,47 @@ class SiteController extends Controller
      */
     public function actionGracias()
     {
-        /** $db = Yii::$app->db;
-         * $transaction = $db->beginTransaction();
-         * $idUser = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : 'NULL';
-         *
-         * try {
-         * $costoEnvio = Yii::$app->request->post('costo_envio');
-         * $direccion = Yii::$app->request->post('direccion');
-         * $costoTotal = Yii::$app->request->post('costo_total');
-         * $datos = Yii::$app->request->post('datos');
-         * $cart = Yii::$app->cart;
-         *
-         * $today = date('Y-m-d H:i:s');
-         * $insertEnvio = "INSERT INTO pedidos VALUES (NULL, $idUser, $costoEnvio, 'draft', '$direccion', $costoTotal, '$datos', '$today')";
-         *
-         * $db->createCommand($insertEnvio)->execute();
-         * $idPedido = Yii::$app->db->getLastInsertID();
-         *
-         * $cartPositions = $cart->getPositions();
-         * foreach ($cartPositions as $cartPosition) {
-         * $idProduct = $cartPosition->getId();
-         * $quantity = $cartPosition->getQuantity();
-         * $precio = $cartPosition->getPrice();
-         *
-         * $insertPedidosProducto = "INSERT INTO pedidos_productos VALUES ($idPedido, $idProduct, $quantity, $precio)";
-         * $db->createCommand($insertPedidosProducto)->execute();
-         * }
-         *
-         * $transaction->commit();
-         * $cart->removeAll();
-         * //Send email
-         * } catch (Exception $e) {
-         * exit(var_dump($e->getMessage()));
-         * Yii::info($e->getMessage());
-         * $transaction->rollBack();
-         * } */
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $idUser = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : 'NULL';
+
+        try {
+            $costoEnvio = Yii::$app->request->post('costo_envio');
+            $direccion = Yii::$app->request->post('direccion');
+            $costoTotal = Yii::$app->request->post('costo_total');
+            $nombre = Yii::$app->request->post('nombre');
+            $email = Yii::$app->request->post('email');
+            $cart = Yii::$app->cart;
+
+            $today = date('Y-m-d H:i:s');
+            $insertEnvio = "INSERT INTO pedidos VALUES (NULL, $idUser, $costoEnvio, 'creado', '$direccion', $costoTotal, '$nombre', '$email', '$today')";
+
+            $db->createCommand($insertEnvio)->execute();
+            $idPedido = Yii::$app->db->getLastInsertID();
+
+            $cartPositions = $cart->getPositions();
+            foreach ($cartPositions as $cartPosition) {
+                $idProduct = $cartPosition->getId();
+                $quantity = $cartPosition->getQuantity();
+                $precio = $cartPosition->getPrice();
+
+                $insertPedidosProducto = "INSERT INTO pedidos_productos VALUES ($idPedido, $idProduct, $quantity, $precio)";
+                $db->createCommand($insertPedidosProducto)->execute();
+            }
+
+            $transaction->commit();
+            $cart->removeAll();
+            Yii::$app->mailer->compose(
+                ['html' => '@app/mail/neworder'],
+                ['cartPositions' => $cartPositions, 'costoEnvio' => $costoEnvio, 'costoTotal' => $costoTotal,])
+                ->setFrom('info@tiendafcfacil.com')
+                ->setTo($email)
+                ->setSubject('Gracias por su compra en Tienda FC Fácil')
+                ->send();
+        } catch (Exception $e) {
+            Yii::info($e->getMessage());
+            $transaction->rollBack();
+        }
 
         return $this->render('gracias');
     }

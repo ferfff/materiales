@@ -31,12 +31,16 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            //'viewPath' => '@common/mail',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'mail.materiales.com.mx',  // ej. smtp.mandrillapp.com o smtp.gmail.com
-                'username' => 'contacto@materiales.com.mx',
-                'password' => 'c0nt4ct0VILLALUZ',
+                'host' => 'smtp.ionos.mx',  // ej. smtp.mandrillapp.com o smtp.gmail.com
+                'username' => 'info@tiendafcfacil.com',
+                'password' => 'Tienda2021-',
                 'port' => '587', // El puerto 25 es un puerto común también
                 'encryption' => 'tls', // Es usado también a menudo, revise la configuración del servidor
             ],
