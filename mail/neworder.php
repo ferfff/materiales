@@ -40,7 +40,13 @@ Responder a: $email
 </div>
 HTML;
 
-echo "<table>";
+echo "<table>
+<tr>
+    <td>Nombre</td>
+    <td>Price</td>
+    <td>Cantidad</td>
+    <td>Total</td>
+</tr>";
 
 foreach ($cartPositions as $cartPosition) {
     $totalProducto = $cartPosition->price * $cartPosition->quantity;
