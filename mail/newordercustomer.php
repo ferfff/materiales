@@ -10,8 +10,6 @@ use yii\web\View;
 /* @var $cartPositions [] */
 /* @var $costoTotal float */
 /* @var $costoEnvio float */
-/* @var $nombre string */
-/* @var $email string */
 ?>
 
 <?php $this->beginPage() ?>
@@ -22,6 +20,11 @@ use yii\web\View;
     <title><?= Html::encode('Mail') ?></title>
     <?php $this->head() ?>
     <style type="text/css">
+        #header {
+            text-align: center;
+            margin-bottom: 250px;
+        }
+
         .footer-bottom {
             background-color: #ff0000;
             border-top: 5px solid #000000;
@@ -34,28 +37,19 @@ use yii\web\View;
 <?php $this->beginBody();
 
 echo <<<HTML
+<div id="header">
+    <img alt="logo FC materiales" src="http://tiendafcfacil.com/img/facil_construir_logo.jpg" width="300px">
+</div>
 <div>
-Nueva Orden generada por $nombre
-Responder a: $email
+Favor de depositar en BBAJIO a la cuenta 6380984 / CLABE 030225638098402015
+<br>
+Razón Social: FC FACIL DE CONSTRUIR SA DE CV
+<br>
+Gracias por comprar con nosotros, en breve lo contactaremos
 </div>
 HTML;
 
-echo "<table>";
-
-foreach ($cartPositions as $cartPosition) {
-    $totalProducto = $cartPosition->price * $cartPosition->quantity;
-    echo <<<HTML
-<tr>
-    <td>$cartPosition->nombre</td>
-    <td>$cartPosition->price</td>
-    <td>$cartPosition->quantity</td>
-    <td>$totalProducto</td>
-</tr>
-HTML;
-}
-echo "</table>";
-
-$total = $costoTotal + $costoEnvio;
+$total = $costoEnvio + $costoTotal;
 
 echo <<<HTML
 <table>

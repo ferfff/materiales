@@ -2,11 +2,12 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "pedidos_productos".
  *
+ * @property int $id
  * @property int $pedidos_id
  * @property int $productos_id
  * @property int $cantidad
@@ -44,6 +45,7 @@ class PedidosProductos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'pedidos_id' => 'Pedidos ID',
             'productos_id' => 'Productos ID',
             'cantidad' => 'Cantidad',
@@ -53,7 +55,7 @@ class PedidosProductos extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Pedidos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getPedidos()
     {
@@ -63,7 +65,7 @@ class PedidosProductos extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Productos]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getProductos()
     {

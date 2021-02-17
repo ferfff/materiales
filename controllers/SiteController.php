@@ -303,14 +303,18 @@ class SiteController extends Controller
                         $tiendasProductos = TiendasProductos::find()
                             ->where(['tiendas_id' => $branchOfficeId])
                             ->andWhere(['productos_id' => $idProduct])->one();
-                        $precio = $tiendasProductos->precio;
-                        $model->setPrice($precio);
-                        $priceTotal += $precio;
-                        $cart->put($model, $quantity);
+
+                        if ($tiendasProductos) {
+                            $precio = $tiendasProductos->precio;
+                            $model->setPrice($precio);
+                            $priceTotal += $precio;
+                            $cart->put($model, $quantity);
+                        }
                     }
                 }
             }
         } catch (Exception $e) {
+            exit($e->getMessage());
             return $this->redirect(['site/carrito']);
         }
 
@@ -397,22 +401,38 @@ class SiteController extends Controller
                 $quantity = $cartPosition->getQuantity();
                 $precio = $cartPosition->getPrice();
 
-                $insertPedidosProducto = "INSERT INTO pedidos_productos VALUES ($idPedido, $idProduct, $quantity, $precio)";
+                $insertPedidosProducto = "INSERT INTO pedidos_productos VALUES (NULL, $idPedido, $idProduct, $quantity, $precio)";
                 $db->createCommand($insertPedidosProducto)->execute();
             }
 
-            $transaction->commit();
-            $cart->removeAll();
             Yii::$app->mailer->compose(
                 ['html' => '@app/mail/neworder'],
+                [
+                    'cartPositions' => $cartPositions,
+                    'costoEnvio' => $costoEnvio,
+                    'costoTotal' => $costoTotal,
+                    'nombre' => $nombre,
+                    'email' => $email,
+                ])
+                ->setFrom('info@tiendafcfacil.com')
+                ->setReplyTo([$email => $nombre])
+                ->setTo('info@tiendafcfacil.com')
+                ->setSubject("Orden $idPedido generada")
+                ->send();
+
+            Yii::$app->mailer->compose(
+                ['html' => '@app/mail/newordercustomer'],
                 ['cartPositions' => $cartPositions, 'costoEnvio' => $costoEnvio, 'costoTotal' => $costoTotal,])
                 ->setFrom('info@tiendafcfacil.com')
                 ->setTo($email)
                 ->setSubject('Gracias por su compra en Tienda FC Fácil')
                 ->send();
+            $transaction->commit();
+            $cart->removeAll();
         } catch (Exception $e) {
             Yii::info($e->getMessage());
             $transaction->rollBack();
+            exit($e->getMessage());
         }
 
         return $this->render('gracias');

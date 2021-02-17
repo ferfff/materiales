@@ -24,6 +24,7 @@ YiiAsset::register($this);
         <div class="container">
             <div class="row __confirmar">
                 <div class="col-lg-8">
+                    <label class="form-label"><b>Si su producto no se encuentra en el carrito, <br> no lo tenemos en esta sucursal por el momento</b></label>
                     <?php foreach ($cartPositions as $cartPosition) { ?>
                         <div class="card mb-3">
                             <div class="row no-gutters d-flex align-items-center">

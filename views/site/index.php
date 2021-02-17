@@ -88,6 +88,7 @@ use yii\helpers\Html;
                         <?= Html::tag('p', Html::encode($producto->descripcion), ['class' => 'p_descripcion']) ?>
                         <?= Html::a('Ver detalle <i class="fas fa-angle-right"></i>', ['productos/view', 'id' => $producto->id], ['class' => "btn btn-primary my-2"]) ?>
                         <?= Html::hiddenInput('id', $producto->id, []) ?>
+                        <?= Html::input('text', 'cantidad', '1', ['class' => '']) ?>
                         <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-warning"]) ?>
                     </div>
                 </div>
