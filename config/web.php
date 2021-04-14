@@ -51,7 +51,20 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'categories' => [
+                        'yii\db\*',
+                        'yii\web\HttpException:*',
+                    ],
+                    'except' => [
+                        'yii\web\HttpException:404',
+                    ],
+                    'logFile' => '@runtime/logs/materiales.log',
                 ],
+                /*[
+                    'class' => 'yii\log\DbTarget',
+                    'levels' => ['error', 'warning'],
+                    'logFile' => '@runtime/logs/materialesdb.log',
+                ],*/
             ],
         ],
         'db' => $db,

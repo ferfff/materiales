@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
+/* @var $productos [] */
+/* @var $productosTop [] */
+/* @var $categoriaName string */
 
 ?>
 <!-- Banner -->
@@ -39,7 +42,7 @@ use yii\helpers\Html;
                             <div class="card-body">
                                 <?= Html::tag('h5', Html::encode($productoTop->nombre), ['class' => 'header_product']) ?>
                                 <?= Html::tag('p', Html::encode($productoTop->descripcion), ['class' => 'p_descripcion mb-3']) ?>
-                                <?= Html::a('Ver detalle', ['productos/view', 'id' => $productoTop->id], ['class' => "btn btn-primary btn-sm my-2"]) ?>
+                                <?= Html::a('Ver detalle', ['site/detalle', 'id' => $productoTop->id], ['class' => "btn btn-primary btn-sm my-2"]) ?>
                                 <?= Html::hiddenInput('id', $productoTop->id, []) ?>
                                 <?= Html::submitButton('Añadir al carrito', ['class' => "btn btn-warning btn-sm"]) ?>
                             </div>
@@ -83,13 +86,13 @@ use yii\helpers\Html;
             <div class="col mb-3">
                 <div class="card text-center h-100">
                     <div class="card-body">
-                        <?= Html::img('/images/' . $producto->foto, ['class' => 'card-img-top', 'alt' => "Imagen"]); ?>
+                        <?= Html::img('/images/' . $producto->foto, ['class' => 'card-img-top img_product mb-2', 'alt' => "Imagen"]); ?>
                         <?= Html::tag('h5', Html::encode($producto->nombre), ['class' => 'header_product']) ?>
                         <?= Html::tag('p', Html::encode($producto->descripcion), ['class' => 'p_descripcion']) ?>
-                        <?= Html::a('Ver detalle <i class="fas fa-angle-right"></i>', ['productos/view', 'id' => $producto->id], ['class' => "btn btn-primary my-2"]) ?>
+                        <?= Html::a('Ver detalle <i class="fas fa-angle-right"></i>', ['site/detalle', 'id' => $producto->id], ['class' => "btn btn-primary my-2 btn-block btn-bg"]) ?>
                         <?= Html::hiddenInput('id', $producto->id, []) ?>
-                        <?= Html::input('text', 'cantidad', '1', ['class' => '']) ?>
-                        <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-warning"]) ?>
+                        <?= Html::input('text', 'cantidad', '1', ['class' => 'mb-2 text-center cantidad']) ?>
+                        <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-warning btn-block btn-bg"]) ?>
                     </div>
                 </div>
             </div>

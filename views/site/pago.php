@@ -96,15 +96,15 @@ HTML;
                         <div class="card bg-light">
                             <div class="row row-cols-2 px-3 my-3 font-weight-bold">
                                 <div class="col"><p>Subtotal</p></div>
-                                <div class="col direction-r">$<?= $precioTotal ?></div>
-                                <input type="hidden" name="costo_total" value="<?= $precioTotal ?>">
+                                <div class="col direction-r">$<?= number_format($total, 2) ?></div>
+                                <input type="hidden" name="costo_total" value="<?= $total ?>">
                                 <div class="col">Costo de Envío</div>
-                                <div class="col direction-r">$<?= $costoEnvio ?></div>
+                                <div class="col direction-r">$<?= number_format($costoEnvio, 2) ?></div>
                                 <input type="hidden" name="costo_envio" value="<?= $costoEnvio ?>">
                                 <div class="border-top mt-2 pt-2"></div>
                                 <div class="border-top mt-2 pt-2"></div>
                                 <div class="col mt-2 pt-2">Total</div>
-                                <div class="col direction-r cost mt-2">$<?= $costoEnvio + $precioTotal ?></div>
+                                <div class="col direction-r cost mt-2">$<?= number_format($costoEnvio + $total, 2) ?></div>
                             </div>
                         </div>
                         <?php

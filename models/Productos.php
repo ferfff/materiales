@@ -81,7 +81,7 @@ class Productos extends ActiveRecord implements CartPositionInterface
      */
     public function getPedidosProductos()
     {
-        return $this->hasMany(PedidosProductos::className(), ['productos_id' => 'id']);
+        return $this->hasMany(PedidosProductos::class, ['productos_id' => 'id']);
     }
 
     /**

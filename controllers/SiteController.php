@@ -5,11 +5,13 @@ namespace app\controllers;
 use app\models\Categorias;
 use app\models\Codigos;
 use app\models\Envios;
+use app\models\Pedidos;
 use app\models\Tiendas;
 use app\models\TiendasProductos;
 use app\models\User;
 use Exception;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -80,23 +82,32 @@ class SiteController extends Controller
             $products = Productos::find()
                 ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
                 ->where(['categorias.id' => $idCategory])
-                ->orderBy('productos.categoria')
+                ->orderBy('RAND()')
                 ->all();
             $category = Categorias::findOne($idCategory);
             $categoryName = $category->categoria;
         } else {
             $products = Productos::find()
-                ->orderBy('categoria')
+                ->orderBy('RAND()')
                 ->all();
             $categoryName = 'Nuestros productos';
         }
 
-        $productsTop = Productos::find()
-            ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
-            ->innerJoin('tiendas_productos as tp', 'tp.productos_id = productos.id')
-            ->where(['categorias.id' => $idCategory])
-            ->limit(4)
-            ->all();
+        if ($idCategory) {
+            $productsTop = Productos::find()
+                ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
+                ->innerJoin('pedidos_productos as pp', 'pp.productos_id = productos.id')
+                ->where(['categorias.id' => $idCategory])
+                ->limit(4)
+                ->orderBy('RAND()')
+                ->all();
+        } else {
+            $productsTop = Productos::find()
+                ->innerJoin('pedidos_productos as pp', 'pp.productos_id = productos.id')
+                ->limit(4)
+                ->orderBy('RAND()')
+                ->all();
+        }
 
         return $this->render('index', [
             'productos' => $products,
@@ -248,7 +259,7 @@ class SiteController extends Controller
     /**
      * Displays about page.
      *
-     * @return string
+     * @return mixed
      */
     public function actionPago()
     {
@@ -298,23 +309,21 @@ class SiteController extends Controller
                     $idProduct = $cartPosition->getId();
                     $quantity = $cartPosition->getQuantity();
                     $model = Productos::findOne($idProduct);
-                    if ($model) {
-                        $cart->remove($cartPosition);
-                        $tiendasProductos = TiendasProductos::find()
-                            ->where(['tiendas_id' => $branchOfficeId])
-                            ->andWhere(['productos_id' => $idProduct])->one();
+                    $tiendasProductos = TiendasProductos::find()
+                        ->where(['tiendas_id' => $branchOfficeId])
+                        ->andWhere(['productos_id' => $idProduct])->one();
 
-                        if ($tiendasProductos) {
-                            $precio = $tiendasProductos->precio;
-                            $model->setPrice($precio);
-                            $priceTotal += $precio;
-                            $cart->put($model, $quantity);
-                        }
+                    $cart->remove($cartPosition);
+                    if ($tiendasProductos) {
+                        $precio = $tiendasProductos->precio;
+                        $model->setPrice($precio);
+                        $cart->put($model, $quantity);
                     }
+                    $priceTotal += $cart->getCost();
                 }
             }
         } catch (Exception $e) {
-            exit($e->getMessage());
+            //exit($e->getMessage());
             return $this->redirect(['site/carrito']);
         }
 
@@ -326,7 +335,7 @@ class SiteController extends Controller
             'sucursalId' => $branchOfficeId,
             'costoEnvio' => $sentCost,
             'direccion' => $direction,
-            'precioTotal' => $priceTotal,
+            'total' => $priceTotal,
         ]);
     }
 
@@ -449,13 +458,25 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays about page.
-     *
-     * @return string
+     * Displays a single Productos model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDetalle()
+    public function actionDetalle($id)
     {
-        return $this->render('detalle');
+        $model = Productos::findOne($id);
+
+        if (!$model) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        $categorias = Categorias::findOne($model->categoria);
+
+        return $this->render('detalle', [
+            'model' => $model,
+            'categorias' => $categorias,
+        ]);
     }
 
     /**
@@ -490,5 +511,29 @@ class SiteController extends Controller
             return $this->redirect(['index']);
         }
         throw new NotFoundHttpException();
+    }
+
+    /**
+     * Lists all Pedidos models.
+     * @param null|int $id
+     * @return mixed
+     */
+    public function actionMispedidos($id = NULL)
+    {
+        $id = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : '';
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Pedidos::find()
+                ->where(['users_id' => $id])
+                ->orderBy('date')
+                ->asArray(),
+            'pagination' => [
+                'pageSize' => 5
+            ]
+        ]);
+
+        return $this->render('mispedidos', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

@@ -20,7 +20,7 @@ class PostPedidos extends Pedidos
             [['id', 'users_id'], 'integer'],
             [['precioenvio', 'preciototal'], 'number'],
             [['date'], 'date'],
-            [['estatus', 'direccion_envio', 'datos'], 'safe'],
+            [['estatus', 'direccion_envio', 'nombre', 'email'], 'safe'],
         ];
     }
 
@@ -70,7 +70,7 @@ class PostPedidos extends Pedidos
         $query->andFilterWhere(['like', 'estatus', $this->estatus])
             ->andFilterWhere(['like', 'direccion_envio', $this->direccion_envio])
             ->andFilterWhere(['like', 'date', $this->date])
-            ->andFilterWhere(['like', 'datos', $this->datos]);
+            ->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

@@ -52,7 +52,8 @@ $this->title = 'Pedidos';
             'estatus',
             'direccion_envio:ntext',
             'preciototal',
-            'datos',
+            'nombre',
+            'email',
             'date',
         ],
     ]); ?>

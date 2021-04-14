@@ -39,8 +39,8 @@ $this->beginPage() ?>
                 <div class="col-md-9 col-lg-7">
                     <nav class="nav_contact">
                         <span class="nav-link text-light p_12"><i class="fas fa-phone"></i> (477) 514-9653 al 56</span>
-                        <a class="nav-link text-light p_12" href="mailto:contacto@fcfacil.com" target="_blank"><i
-                                    class="fas fa-envelope"></i> <span class="info">contacto@fcfacil.com</span></a>
+                        <a class="nav-link text-light p_12" href="mailto:info@tiendafcfacil.com" target="_blank"><i
+                                    class="fas fa-envelope"></i> <span class="info">info@tiendafcfacil.com</span></a>
                         <a class="nav-link text-light p_12" href="https://es-la.facebook.com/facildeconstruir"
                            target="_blank"><i class="fab fa-facebook-f"></i> <span class="info">facildeconstruir</span></a>
                     </nav>
@@ -111,6 +111,17 @@ HTML;
                                 </a>
                             </div>
                         </li>
+                        <?php
+                        if (!Yii::$app->user->isGuest) {
+                            echo <<<HTML
+<li> |</li>
+<li>
+    <a class="nav-link text-light p-2" href="/site/mispedidos">Mis pedidos</a>
+</li>
+HTML;
+                        } else {
+                            echo '';
+                        } ?>
                         <?php
                         $id = (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : '';
                         if (User::isAdmin($id)) {
@@ -196,8 +207,8 @@ HTML;
                     <li class="media my-4">
                         <i class="fas fa-envelope mr-3 mt-1"></i>
                         <div class="media-body">
-                            <a class="text-light p_12" href="mailto:contacto@fcfacil.com" target="_blank"> <span
-                                        class="info">contacto@fcfacil.com</span></a>
+                            <a class="text-light p_12" href="mailto:info@tiendafcfacil.com" target="_blank"> <span
+                                        class="info">info@tiendafcfacil.com</span></a>
                         </div>
                     </li>
                     <li class="media">
@@ -215,32 +226,19 @@ HTML;
                 <div class="row">
                     <div class="col-md-4 col-lg-4 p_12">
                         <ul>
-                            <li>Poliuretanos</li>
-                            <li>Tableros de yeso</li>
-                            <li>Tableros de cementos</li>
-                            <li>Plafones</li>
+                            <li>Tornillería</li>
+                            <li>Fijación</li>
+                            <li>Soportería</li>
+                            <li>Adhesivos y Cintas</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-lg-4 p_12">
+                        <ul>
+                            <li>Aislantes</li>
                             <li>Impermeabilizantes</li>
-                            <li>Metales y perfiles</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 col-lg-4 p_12">
-                        <ul>
-                            <li>Suspensión</li>
-                            <li>Pasta</li>
-                            <li>Complementos</li>
-                            <li>Energía alternativa</li>
-                            <li>Glasnier</li>
-                            <li>Pintura</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4 col-lg-4 p_12">
-                        <ul>
-                            <li>Herramienta</li>
-                            <li>Panel de Aluminio</li>
-                            <li>Puertas</li>
-                            <li>Compuestos</li>
-                            <li>Escaleras</li>
-                            <li>Perfiles de Aluminio</li>
+                            <li>Pinturas</li>
+                            <li>Plafones</li>
+                            <li>Tableros</li>
                         </ul>
                     </div>
                 </div>

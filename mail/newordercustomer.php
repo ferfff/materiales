@@ -20,16 +20,48 @@ use yii\web\View;
     <title><?= Html::encode('Mail') ?></title>
     <?php $this->head() ?>
     <style type="text/css">
+
+        body{
+            border: 5px solid #82848a;
+            width: 60%;
+            padding: 20px;
+            margin: auto;
+            text-align: center;
+            font-size: 22px
+        }
+
         #header {
             text-align: center;
-            margin-bottom: 250px;
+            margin-bottom: 50px;
         }
 
         .footer-bottom {
             background-color: #ff0000;
             border-top: 5px solid #000000;
             height: 80px;
-            margin-top: 250px;
+            margin-top: 50px;
+        }
+
+        .mail-container{
+            margin-bottom: 80px;
+            border-bottom: 1px solid #e5e8eb;
+            padding-bottom: 50px;
+        }
+
+        .text-red{
+            color: #ee0000;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 0px;
+            text-align: left;
+            padding: 8px;
         }
     </style>
 </head>
@@ -40,12 +72,20 @@ echo <<<HTML
 <div id="header">
     <img alt="logo FC materiales" src="http://tiendafcfacil.com/img/facil_construir_logo.jpg" width="300px">
 </div>
-<div>
-Favor de depositar en BBAJIO a la cuenta 6380984 / CLABE 030225638098402015
-<br>
-Razón Social: FC FACIL DE CONSTRUIR SA DE CV
-<br>
-Gracias por comprar con nosotros, en breve lo contactaremos
+
+<div class="mail-container">
+    <div>
+        <p>¡Hola! Gracias por tu compra en Fácil de Construir. Esperamos que tu experiencia de compra haya sido satisfactoria. 
+        Te compartimos las siguientes instrucciones para completar tu orden de compra.</p>
+        <p>Realiza el pago en: <b class="text-red">BBAJIO</b><br>
+        a la cuenta <b class="text-red">6380984</b><br>
+        CLABE <b class="text-red">030225638098402015</b></p>
+        <p>Razón Social:<br>
+        <b class="text-red">FC FACIL DE CONSTRUIR SA DE CV</b></p>
+        <p>Una vez realizado el depósito, enviar el comprobante de pago al correo 
+        hidalgo@fcfacil.com y/o llamar al teléfono 477 717 4632 , donde uno de nuestros ejecutivos le atenderá.</p>
+        <p><a href="http://tiendafcfacil.com/site/ayuda">Dudas frecuentes</a></p>
+    </div>
 </div>
 HTML;
 
@@ -54,13 +94,13 @@ $total = $costoEnvio + $costoTotal;
 echo <<<HTML
 <table>
     <tr>
-    <td>Subtotal : </td><td>$ $costoTotal</td>
+        <th>Subtotal : </th><th>$ $costoTotal</th>
     </tr>
     <tr>
-    <td>Costo de Envío : </td><td>$ $costoEnvio</td>
+        <th>Costo de Envío : </th><th>$ $costoEnvio</th>
     </tr>
     <tr>
-    <td>Total : </td><td>$ $total</td>
+        <th>Total : </th><th>$ $total</th>
     </tr>
 </table>
 HTML;

@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use app\models\Productos;
 use app\models\ProductosSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,11 +22,25 @@ class ProductosController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['index','view','update','delete','create', 'deleteProduct'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isAdmin(Yii::$app->user->identity->id);
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
         ];
     }
