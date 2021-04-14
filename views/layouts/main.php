@@ -67,6 +67,10 @@ $this->beginPage() ?>
                                 echo '</li>';
                             } ?>
                         </div>
+                        <form id="searchProductForm" action="/site/index" method="get">
+                            <input class="form-control mr-sm-1" name="search" id="search" type="search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        </form>
                     </div>
                 </div>
 

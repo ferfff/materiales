@@ -77,6 +77,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $idCategory = Yii::$app->request->get('id');
+        $searchName = Yii::$app->request->get('search');
 
         if ($idCategory) {
             $products = Productos::find()
@@ -86,6 +87,12 @@ class SiteController extends Controller
                 ->all();
             $category = Categorias::findOne($idCategory);
             $categoryName = $category->categoria;
+        } elseif ($searchName) {
+            $products = Productos::find()
+                ->where(['like', 'nombre', $searchName])
+                ->orderBy('RAND()')
+                ->all();
+            $categoryName = $searchName;
         } else {
             $products = Productos::find()
                 ->orderBy('RAND()')
@@ -120,6 +127,7 @@ class SiteController extends Controller
      * Login action.
      *
      * @return Response|string
+     * @throws \yii\base\Exception
      */
     public function actionLogin()
     {
@@ -239,7 +247,7 @@ class SiteController extends Controller
 
     /**
      * Delete a single Product to cart.
-     * @return mixed
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete()
@@ -259,7 +267,7 @@ class SiteController extends Controller
     /**
      * Displays about page.
      *
-     * @return mixed
+     * @return Response|string
      */
     public function actionPago()
     {
@@ -494,7 +502,7 @@ class SiteController extends Controller
 
     /**
      * Adding a single Product to cart.
-     * @return mixed
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionAdd()
@@ -516,7 +524,7 @@ class SiteController extends Controller
     /**
      * Lists all Pedidos models.
      * @param null|int $id
-     * @return mixed
+     * @return string
      */
     public function actionMispedidos($id = NULL)
     {
