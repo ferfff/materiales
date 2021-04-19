@@ -7,6 +7,7 @@ use app\models\User;
 use Yii;
 use app\models\Pedidos;
 use app\models\PostPedidos;
+use yii\base\BaseObject;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -27,7 +28,7 @@ class EnviosController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index','view','update','delete','create'],
+                        'actions' => ['index','view','update','delete','create', 'actualizar'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -49,7 +50,7 @@ class EnviosController extends Controller
     /**
      * Lists all Pedidos models.
      * @param null|int $id
-     * @return mixed
+     * @return string
      */
     public function actionIndex($id = NULL)
     {
@@ -65,7 +66,7 @@ class EnviosController extends Controller
     /**
      * Displays a single Pedidos model.
      * @param integer $id
-     * @return mixed
+     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
@@ -131,6 +132,17 @@ class EnviosController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Update prices and pictures
+     * @return string
+     */
+    public function actionActualizar()
+    {
+        return $this->render('actualizar', [
+
+        ]);
     }
 
     /**

@@ -135,6 +135,12 @@ HTML;
     <a class="nav-link text-light p-2" href="/envios/index">Administración</a>
 </li>
 HTML;
+                            echo <<<HTML
+<li> |</li>
+<li>
+    <a class="nav-link text-light p-2" href="/envios/actualizar">Actualizar</a>
+</li>
+HTML;
                         } else {
                             echo '';
                         } ?>
