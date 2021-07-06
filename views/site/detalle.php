@@ -49,8 +49,8 @@ YiiAsset::register($this);
                     <?= Html::hiddenInput('id', $model->id, []) ?>
                     <?= Html::tag('p', Html::encode($model->descripcion), ['class' => '']) ?>
                     <label class="my-1 mr-2">Cantidad</label>
-                    <?= Html::input('text', 'cantidad', '1', ['class' => 'mb-2 text-center cantidad']) ?>
-                    <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-primary my-1 rounded-pill"]) ?>
+                    <?= Html::input('text', 'cantidad', '1', ['class' => 'mb-2 py-1 text-center cantidad']) ?>
+                    <?= Html::submitButton('Añadir al carrito <i class="fas fa-shopping-cart"></i>', ['class' => "btn btn-primary my-1"]) ?>
                     <p class="mb-3"><b>Categoría:</b> <?= $categorias->categoria ?></p>
                     <?= Html::endForm() ?>
                 </div>

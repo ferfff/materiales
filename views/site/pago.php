@@ -119,11 +119,11 @@ HTML;
                         <?php
                         if ($sucursalId == 0) {
 echo <<<HTML
-<button type="submit" id="send" disabled class="btn btn-primary btn-block rounded-pill mt-3">Comprar productos</button>
+<button type="submit" id="send" disabled class="btn btn-primary btn-block mt-3">Comprar productos</button>
 HTML;
                         } else {
                             echo <<<HTML
-<button type="submit" id="send" class="btn btn-primary btn-block rounded-pill mt-3">Comprar productos</button>
+<button type="submit" id="send" class="btn btn-primary btn-block mt-3">Comprar productos</button>
 HTML;
                         }
                         ?>

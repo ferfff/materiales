@@ -17,14 +17,14 @@ use yii\helpers\Html;
                 <p class="p_banner">Contamos con una gran variedad de marcas, productos, excelente servicio
                     personalizado y asesorías. </p>
             </div>
-            <div class="col-lg-6">
-                <img src="../img/banner_home.png" width="100%">
+            <div class="col-lg-6 text-center">
+                <img class="materiales_header" src="../img/materiales_home.png">
             </div>
         </div>
     </div>
 </div>
 
-<h2 class="header_30">Te pueden interesar</h2>
+<h2 class="header_30">Más vendidos</h2>
 
 <!-- Productos -->
 <div class="container border-bottom pb-5">
@@ -32,7 +32,7 @@ use yii\helpers\Html;
         <?php
         foreach ($productosTop as $productoTop) { ?>
             <?= Html::beginForm(['add', 'id' => 'add-to-cart'], 'post', ['enctype' => 'multipart/form-data']) ?>
-            <div class="col mb-3">
+            <div class="col mb-3  h-100">
                 <div class="card h-100 mb-3">
                     <div class="row no-gutters direction-l">
                         <div class="col-md-4">
@@ -85,7 +85,7 @@ use yii\helpers\Html;
             <?= Html::beginForm(['add', 'id' => 'add-to-cart'], 'post', ['enctype' => 'multipart/form-data']) ?>
             <div class="col mb-3">
                 <div class="card text-center h-100">
-                    <div class="card-body">
+                    <div class="card-body h-100">
                         <?= Html::img('/images/' . $producto->foto, ['class' => 'card-img-top img_product mb-2', 'alt' => "Imagen"]); ?>
                         <?= Html::tag('h5', Html::encode($producto->nombre), ['class' => 'header_product']) ?>
                         <?= Html::tag('p', Html::encode($producto->descripcion), ['class' => 'p_descripcion']) ?>
@@ -100,4 +100,19 @@ use yii\helpers\Html;
         <?php }
         ?>
     </div>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-3 mb-5 pb-5">
+            <li class="page-item">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+
 </div>

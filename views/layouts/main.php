@@ -40,9 +40,9 @@ $this->beginPage() ?>
                     <nav class="nav_contact">
                         <span class="nav-link text-light p_12"><i class="fas fa-phone"></i> (477) 514-9653 al 56</span>
                         <a class="nav-link text-light p_12" href="mailto:info@tiendafcfacil.com" target="_blank"><i
-                                    class="fas fa-envelope"></i> <span class="info">info@tiendafcfacil.com</span></a>
+                                    class="fas fa-envelope"></i> <span class="info_header">ventas@fcfacil.com</span></a>
                         <a class="nav-link text-light p_12" href="https://es-la.facebook.com/facildeconstruir"
-                           target="_blank"><i class="fab fa-facebook-f"></i> <span class="info">facildeconstruir</span></a>
+                           target="_blank"><i class="fab fa-facebook-f"></i> <span class="info_header">facildeconstruir</span></a>
                     </nav>
                 </div>
             </div>
@@ -53,7 +53,7 @@ $this->beginPage() ?>
     <div class="container-fluid nav-productos text-light">
         <div class="container">
             <div class="row align_items">
-                <div class="col-md-3 col-lg-2">
+                <div class="col-md-6 col-lg-4">
                     <div class="btn-group py-2 megamenu">
                         <button type="button"
                                 class="btn dropdown-toggle text-light megamenu font-weight-bold red_back __12size"
@@ -67,14 +67,16 @@ $this->beginPage() ?>
                                 echo '</li>';
                             } ?>
                         </div>
-                        <form id="searchProductForm" action="/site/index" method="get">
-                            <input class="form-control mr-sm-1" name="search" id="search" type="search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                        </form>
+                        <div class="search-container p-1 ml-2">
+                            <form id="searchProductForm" class="d-flex" action="/site/index" method="get">
+                                <input class="form-control mr-sm-1" name="search" id="search" type="search" aria-label="Search" placeholder="Buscar">
+                                <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-9 col-lg-5 py-2">
+                <div class="col-sm-12 col-md-6 col-lg-4 py-2">
                     <ul class="nav menu">
                         <li class="nav-item">
                             <a class="nav-link active text-light p-2" href="/">Inicio</a>
@@ -91,7 +93,7 @@ $this->beginPage() ?>
                     </ul>
                 </div>
 
-                <div class="col-sm-12 col-md-12 col-lg-5">
+                <div class="col-sm-12 col-md-12 col-lg-4">
                     <ul class="nav_login text-center p-2">
                         <?php
                         if (Yii::$app->user->isGuest) {
@@ -110,7 +112,7 @@ HTML;
                         <li>
                             <div class="d-flex flex-row">
                                 <div class="numbercircle ml-2"><?= \Yii::$app->cart->getCount() ?></div>
-                                <a class="nav-link text-light" href="/site/carrito">
+                                <a class="nav-link text-light ml-1 pl-0" href="/site/carrito">
                                     <i class="fas fa-shopping-cart"></i> productos
                                 </a>
                             </div>
@@ -201,28 +203,28 @@ HTML;
 <div class="container-fluid back_red py-5">
     <div class="container">
         <div class="row text-light">
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-4 col-lg-4">
                 <a href="index.php"><img src="/img/facil_construir_logo.jpg" width="190px"></a>
                 <h5 class="font-weight-bold my-3">¡Gran variedad de marcas y productos!</h5>
             </div>
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-4 col-lg-4">
                 <h5 class="font-weight-bold my-3">Contacto</h5>
                 <ul class="list-unstyled">
                     <li class="media">
-                        <i class="fas fa-phone mr-3 mt-1"></i>
+                        <i class="fas fa-phone mr-2 mt-1"></i>
                         <div class="media-body">
                             <p class="p_12">(477) 514-9653 al 56</p>
                         </div>
                     </li>
                     <li class="media my-4">
-                        <i class="fas fa-envelope mr-3 mt-1"></i>
+                        <i class="fas fa-envelope mr-2 mt-1"></i>
                         <div class="media-body">
                             <a class="text-light p_12" href="mailto:info@tiendafcfacil.com" target="_blank"> <span
-                                        class="info">info@tiendafcfacil.com</span></a>
+                                        class="info">ventas@fcfacil.com</span></a>
                         </div>
                     </li>
                     <li class="media">
-                        <i class="fab fa-facebook-f mr-3 mt-1"></i>
+                        <i class="fab fa-facebook-f mr-2 mt-1"></i>
                         <div class="media-body">
                             <a class="text-light p_12" href="https://es-la.facebook.com/facildeconstruir"
                                target="_blank"> <span class="info">facildeconstruir</span></a>
@@ -231,7 +233,7 @@ HTML;
                 </ul>
                 <p class="my-3 p_12">Blvd. Torres Landa No. 2209 Ote. Col. Azteca, León, Gto.</p>
             </div>
-            <div class="col-md-12 col-lg-6">
+            <div class="col-md-4 col-lg-4">
                 <h5 class="font-weight-bold my-3">Categorías</h5>
                 <div class="row">
                     <div class="col-md-4 col-lg-4 p_12">

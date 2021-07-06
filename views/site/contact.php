@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <span class="card-img"><i class="fas fa-envelope"></i></span>
                                         </div>
                                         <div class="col-sm-10">
-                                            <h5 class="font-weight-bold">info@tiendafcfacil.com</h5>
+                                            <h5 class="font-weight-bold">ventas@fcfacil.com</h5>
                                         </div>
                                     </div>
                                 </div>

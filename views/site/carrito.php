@@ -25,7 +25,7 @@ use yii\helpers\Html;
                         <div class="direction-l">
                             <h2 class="font-weight-bold text_red">¿Tienes una cuenta?</h2>
                             <a href="/site/login">
-                                <button class="btn btn-primary my-1 rounded-pill mb-5">Iniciar Sesión <i
+                                <button class="btn btn-primary my-1 mb-5">Iniciar Sesión <i
                                             class="fas fa-angle-right"></i></button>
                             </a>
                         </div>

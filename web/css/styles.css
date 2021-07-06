@@ -93,6 +93,9 @@ ul{
 .banner_home{
     background-color: #f4f4f4;
     padding: 40px 0;
+    background-image: url('../img/header_tools.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /*-----productos------*/
@@ -102,6 +105,10 @@ ul{
     padding: 1.25rem;
     border-top: 1px solid #E5E5E5;
     padding: 1.25rem;
+}
+
+.materiales_header{
+    width: 100%;
 }
 
 .product_barra_img{
@@ -181,7 +188,7 @@ img.icon{
 
 /*---Sucursales---*/
 .banner_sucursales{
-    background-image: url('../img/sucursales.jpg');
+    background-image: url('../img/sucursales_header.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -248,17 +255,8 @@ select {
         padding: 0 !important;
     }
 
-    .light-header{
-        font-size: 40px;
-        text-align: center;
-    }
-    
     .red_bold{
         font-size: 40px;
-    }
-
-    .p_banner{
-        text-align: center;
     }
 
     .container_categorias{
@@ -299,7 +297,7 @@ select {
         justify-content: flex-end !important;
     }
 
-    .login,{
+    .login{
         flex-direction: column-reverse !important;
     }
 
@@ -308,6 +306,10 @@ select {
         display: flex;
         flex-direction: row;
     }
+
+    .banner_sucursales{
+        background-position: 60% 40%;
+    }
 }
 
 @media (max-width: 990px) {
@@ -315,6 +317,19 @@ select {
         justify-content: center !important;
         border-top: 1px solid #ffffff;
         padding: 0 !important;
+    }
+
+    .materiales_header{
+        width: 400px;
+    }
+
+    .light-header{
+        font-size: 40px;
+        text-align: center;
+    }
+    
+    .p_banner{
+        text-align: center;
     }
 }
 
@@ -364,13 +379,17 @@ select {
     .menu {
         justify-content: center !important;
     }
+    
+    .banner_sucursales{
+        background-position: 20% 70%;
+    }
+
+    .sucursales_align{
+        text-align: center;
+    }
 }
 
 @media (max-width: 576px) {
-    .info{
-        display: none !important;
-    }
-
     /*---Sucursales---*/
     .banner_sucursales, .banner_preguntas, .banner_contacto{
     background-position: left;
@@ -388,11 +407,19 @@ select {
         height: 250px !important;
         margin-bottom: 3rem !important;
         }
+
+    .info_header{
+        display: none;
+    }
 }
 
 @media (max-width: 425px) {
     .img_mini{
         width: 100%;
+    }
+
+    .materiales_header{
+        width: 300px;
     }
 }
 

@@ -40,14 +40,13 @@ p{
 }
 
 .header_product{
-    font-size: 24px;
+    font-size: 15px;
     font-weight: 700;
 }
 
 .p_descripcion{
-    font-size: 14px;
+    font-size: 12px;
     color: #007BFF;
-    font-weight: 300;
 }
 
 .low_cost{
@@ -114,7 +113,6 @@ html, body {
   .slick-next:before {
     color: black;
   }
-
 
   .slick-slide {
     transition: all ease-in-out .3s;

@@ -2,10 +2,10 @@
 <div class="container-fluid mb-5 banner_sucursales">
 <div class="container">
     <div class="row py-5">
-    <div class="col-md-5 col-lg-5 text-light">
-        <p><span class="font-weight-bold text_red">FC Fácil de Construir S.A. de C.V.</span> es una empresa con más de 25 años de trayectoria dedicada a la distribución y producción de materiales de construcción ligeros y acabados, destacada por su gran variedad de marcas y productos, excelente servicio personalizado y asesorías.</p>
-        <h1 class="font-weight-bold my-4 text_red">¡Gran variedad de marcas y productos!</h1>
-    </div>
+        <div class="col-md-6 col-lg-7 text-light sucursales_align">
+            <p><span class="font-weight-bold">FC Fácil de Construir S.A. de C.V.</span> es una empresa con más de 25 años de trayectoria dedicada a la distribución y producción de materiales de construcción ligeros y acabados, destacada por su gran variedad de marcas y productos, excelente servicio personalizado y asesorías.</p>
+            <h1 class="font-weight-bold my-4 ">¡Gran variedad de marcas y productos!</h1>
+        </div>
     </div>
 </div>
 </div>
