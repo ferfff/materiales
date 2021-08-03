@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $productos [] */
@@ -78,7 +79,7 @@ use yii\helpers\Html;
 <h2 class="header_30"><?= $categoriaName ?></h2>
 
 <!-- Products -->
-<div class="container">
+<nav class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4">
         <?php
         foreach ($productos as $producto) { ?>
@@ -100,19 +101,19 @@ use yii\helpers\Html;
         <?php }
         ?>
     </div>
-    
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center mt-3 mb-5 pb-5">
-            <li class="page-item">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Siguiente</a>
-            </li>
-        </ul>
-    </nav>
 
-</div>
+    <?php
+    echo LinkPager::widget([
+        'pagination' => $pagination,
+        'linkOptions' => ['class' => 'page-link'],
+        'hideOnSinglePage' => 1,
+        'disabledPageCssClass' => 'page-link',
+        'disableCurrentPageButton' => 1,
+        'nextPageLabel' => 'Siguiente',
+        'prevPageLabel' => 'Anterior',
+        'options' => [
+            'class' => 'pagination justify-content-center',
+        ],
+    ]);
+    ?>
+

@@ -12,6 +12,7 @@ use app\models\User;
 use Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -80,25 +81,20 @@ class SiteController extends Controller
         $searchName = Yii::$app->request->get('search');
 
         if ($idCategory) {
-            $products = Productos::find()
+            $query = Productos::find()
                 ->innerJoin('categorias', '`productos`.`categoria` = `categorias`.`id`')
-                ->where(['categorias.id' => $idCategory])
-                ->orderBy('RAND()')
-                ->all();
+                ->where(['categorias.id' => $idCategory]);
             $category = Categorias::findOne($idCategory);
             $categoryName = $category->categoria;
         } elseif ($searchName) {
-            $products = Productos::find()
-                ->where(['like', 'nombre', $searchName])
-                ->orderBy('RAND()')
-                ->all();
+            $query = Productos::find()
+                ->where(['like', 'nombre', $searchName]);
             $categoryName = $searchName;
         } else {
-            $products = Productos::find()
-                ->orderBy('RAND()')
-                ->all();
+            $query = Productos::find();
             $categoryName = 'Nuestros productos';
         }
+        $count = $query->count();
 
         if ($idCategory) {
             $productsTop = Productos::find()
@@ -116,10 +112,17 @@ class SiteController extends Controller
                 ->all();
         }
 
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+
+        $products = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
         return $this->render('index', [
             'productos' => $products,
             'productosTop' => $productsTop,
             'categoriaName' => $categoryName,
+            'pagination' => $pagination,
         ]);
     }
 
