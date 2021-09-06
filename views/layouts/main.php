@@ -34,7 +34,7 @@ $this->beginPage() ?>
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-lg-5 logo">
-                    <a href="/"><img src="/img/FC_logo.svg" width="190px" alt="facil construir"></a>
+                    <a href="/"><img src="/img/FC_logo.svg" class="pt-2 mt-1" width="190px" alt="facil construir"></a>
                 </div>
                 <div class="col-md-9 col-lg-7">
                     <nav class="nav_contact">
